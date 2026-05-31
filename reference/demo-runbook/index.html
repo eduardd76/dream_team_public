@@ -1,0 +1,3340 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Risk-managed autonomous network remediation. Multi-vendor, compliance-aware, auditable.">
+      
+      
+        <meta name="author" content="Eduard Dulharu">
+      
+      
+        <link rel="canonical" href="https://eduardd76.github.io/dream_team_public/reference/demo-runbook/">
+      
+      
+        <link rel="prev" href="../glossary/">
+      
+      
+        <link rel="next" href="../workshop-status/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Demo runbook - Agentic NetOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#workshop-demo-runbook-agentic-netops-ws-2026-06-09" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic NetOps" class="md-header__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic NetOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Demo runbook
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pitch/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Pitch
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../onboarding/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Onboarding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic NetOps" class="md-nav__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agentic NetOps
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../pitch/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pitch
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pitch
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/one-pager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One-pager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/what-this-is/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What this is
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/roi-math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROI math
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/pilot-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    60-day pilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-layer architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/seven-pass-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7-pass validation pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/fault-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EVPN fault rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/kg-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KG schema (Neo4j)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/test-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../architecture/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/scalability-v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalability — V3 persistent shadow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/vendor-abstraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor abstraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/cost-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cost analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/trade-offs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../onboarding/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Onboarding
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Onboarding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/codebase-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codebase map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/local-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local dev
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy (EC2 + SSM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo runbook
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-morning-pre-flight-do-this-30-min-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Morning pre-flight (do this ~30 min before)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-core-loop-incident-triage-specialist-human-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The core loop — incident → triage → specialist → human approval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The core loop — incident → triage → specialist → human approval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-multi-vendor-evpn-vxlan-variant-added-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2a. Multi-vendor EVPN-VXLAN variant (added 2026-05-30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2b-enterprise-validation-stack-on-the-approval-card-added-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2b. Enterprise validation stack on the approval card (added 2026-05-30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-determinism-talking-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Determinism talking point
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-virtual-architect-react-design-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Virtual Architect — ReAct design chat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cascade-dedup-the-differentiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cascade / dedup (the differentiator)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-transcripts-verifiability-tab-8505" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Transcripts &amp; verifiability tab (:8505)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6a-compliance-audit-trail-8501-history-tab-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6a. Compliance audit trail (:8501 History tab → CSV)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-stretch-real-device-lab-only-if-rehearsed-stable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stretch: real-device lab (only if rehearsed + stable)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-if-something-breaks-mid-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. If something breaks mid-demo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-gono-go-per-component-set-during-rehearsal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Go/no-go per component (set during rehearsal)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pitch-demo-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Pitch Demo Scripts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Pitch Demo Scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-the-5-minute-pitch-executive-vp-infrastructure-ciso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 The 5-minute pitch (executive: VP-Infrastructure / CISO)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 The 5-minute pitch (executive: VP-Infrastructure / CISO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-hook-30s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The hook (~30s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-trigger-the-incident-30s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Trigger the incident (~30s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-walk-the-chain-2-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Walk the chain (~2 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-the-cro-money-shot-1-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — The CRO money shot (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-the-brf-money-shot-45s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — The BRF money shot (~45s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-close-30s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Close (~30s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-x-breaks-during-the-5-min-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if X breaks during the 5-min demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-say-in-the-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What NOT to say in the 5-min
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-the-15-minute-pitch-director-of-network-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 The 15-minute pitch (Director of Network Engineering)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 The 15-minute pitch (Director of Network Engineering)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-hook-1-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The hook (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-trigger-and-walk-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Trigger and walk (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-architecture-walk-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Architecture walk (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-the-silent-bug-demo-2-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — The silent-bug demo (~2 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-cro-policiesjson-2-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — CRO + policies.json (~2 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-brf-roi-bridge-1-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — BRF + ROI bridge (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-close-3-min-qa-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — Close (~3 min Q&amp;A buffer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-x-breaks-during-the-15-min-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if X breaks during the 15-min demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-say-in-the-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What NOT to say in the 15-min
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-the-30-minute-deep-dive-chief-architect-sre-director" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 The 30-minute deep-dive (Chief Architect / SRE Director)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 The 30-minute deep-dive (Chief Architect / SRE Director)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-hook-1-min_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The hook (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-5-layer-architecture-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — The 5-layer architecture (~4 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-trigger-walk-the-chain-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Trigger + walk the chain (~4 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-topology-as-code-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Topology-as-code (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-the-7-pass-deep-walk-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — The 7-pass deep walk (~5 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-the-scale-answer-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — The scale answer (~5 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-verifiability-audit-trail-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — Verifiability + audit trail (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-close-5-min-qa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8 — Close (~5 min Q&amp;A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-x-breaks-during-the-30-min-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if X breaks during the 30-min demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-say-in-the-30-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What NOT to say in the 30-min
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workshop-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshop status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-morning-pre-flight-do-this-30-min-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Morning pre-flight (do this ~30 min before)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-core-loop-incident-triage-specialist-human-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The core loop — incident → triage → specialist → human approval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The core loop — incident → triage → specialist → human approval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-multi-vendor-evpn-vxlan-variant-added-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2a. Multi-vendor EVPN-VXLAN variant (added 2026-05-30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2b-enterprise-validation-stack-on-the-approval-card-added-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2b. Enterprise validation stack on the approval card (added 2026-05-30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-determinism-talking-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Determinism talking point
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-virtual-architect-react-design-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Virtual Architect — ReAct design chat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cascade-dedup-the-differentiator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cascade / dedup (the differentiator)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-transcripts-verifiability-tab-8505" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Transcripts &amp; verifiability tab (:8505)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6a-compliance-audit-trail-8501-history-tab-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6a. Compliance audit trail (:8501 History tab → CSV)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-stretch-real-device-lab-only-if-rehearsed-stable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stretch: real-device lab (only if rehearsed + stable)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-if-something-breaks-mid-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. If something breaks mid-demo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-gono-go-per-component-set-during-rehearsal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Go/no-go per component (set during rehearsal)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pitch-demo-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Pitch Demo Scripts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Pitch Demo Scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-the-5-minute-pitch-executive-vp-infrastructure-ciso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 The 5-minute pitch (executive: VP-Infrastructure / CISO)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 The 5-minute pitch (executive: VP-Infrastructure / CISO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-hook-30s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The hook (~30s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-trigger-the-incident-30s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Trigger the incident (~30s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-walk-the-chain-2-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Walk the chain (~2 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-the-cro-money-shot-1-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — The CRO money shot (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-the-brf-money-shot-45s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — The BRF money shot (~45s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-close-30s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Close (~30s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-x-breaks-during-the-5-min-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if X breaks during the 5-min demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-say-in-the-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What NOT to say in the 5-min
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-the-15-minute-pitch-director-of-network-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 The 15-minute pitch (Director of Network Engineering)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 The 15-minute pitch (Director of Network Engineering)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-hook-1-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The hook (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-trigger-and-walk-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Trigger and walk (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-architecture-walk-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Architecture walk (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-the-silent-bug-demo-2-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — The silent-bug demo (~2 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-cro-policiesjson-2-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — CRO + policies.json (~2 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-brf-roi-bridge-1-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — BRF + ROI bridge (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-close-3-min-qa-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — Close (~3 min Q&amp;A buffer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-x-breaks-during-the-15-min-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if X breaks during the 15-min demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-say-in-the-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What NOT to say in the 15-min
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-the-30-minute-deep-dive-chief-architect-sre-director" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 The 30-minute deep-dive (Chief Architect / SRE Director)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 The 30-minute deep-dive (Chief Architect / SRE Director)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-hook-1-min_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — The hook (~1 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-5-layer-architecture-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — The 5-layer architecture (~4 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-trigger-walk-the-chain-4-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Trigger + walk the chain (~4 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-topology-as-code-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Topology-as-code (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-the-7-pass-deep-walk-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — The 7-pass deep walk (~5 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-the-scale-answer-5-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — The scale answer (~5 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-verifiability-audit-trail-3-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7 — Verifiability + audit trail (~3 min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-close-5-min-qa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8 — Close (~5 min Q&amp;A)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-x-breaks-during-the-30-min-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if X breaks during the 30-min demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-say-in-the-30-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What NOT to say in the 30-min
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="workshop-demo-runbook-agentic-netops-ws-2026-06-09">Workshop Demo Runbook — Agentic NetOps (WS 2026-06-09)<a class="headerlink" href="#workshop-demo-runbook-agentic-netops-ws-2026-06-09" title="Permanent link">&para;</a></h1>
+<p>Click-by-click script for rehearsal + the live demo. Default posture: <strong>mock devices</strong>
+(deterministic, no lab dependency). Real-device lab is the optional stretch (§7).</p>
+<p><strong>Endpoints</strong> (AI_Dream_Team, <code>&lt;APP_HOST_IP&gt;</code>):
+- Main UI (chat + approvals): <code>http://&lt;APP_HOST_IP&gt;:8501</code>
+- Transcripts &amp; HITL tab (verifiability): <code>http://&lt;APP_HOST_IP&gt;:8505</code>
+- MCP health: <code>http://&lt;APP_HOST_IP&gt;:8001/health</code> · Team-Leader ACP: <code>:8002/acp/health</code></p>
+<hr />
+<h2 id="1-morning-pre-flight-do-this-30-min-before">1. Morning pre-flight (do this ~30 min before)<a class="headerlink" href="#1-morning-pre-flight-do-this-30-min-before" title="Permanent link">&para;</a></h2>
+<p>Instances auto-start 08:00 Europe/Berlin; the boot-reconcile brings the stack up + heals Redis-DNS.
+Run the preflight (via SSM on <code>&lt;INSTANCE_ID&gt;</code>):</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># stack health</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;MCP %{http_code}\n&quot;</span><span class="w"> </span>http://localhost:8001/health
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;UI  %{http_code}\n&quot;</span><span class="w"> </span>http://localhost:8501
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>sudo<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{.Names}} {{.Status}}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;mcp|team-leader|stability|security|troubleshoot|virtual|ui|redis|timescale&quot;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># mock mode confirmed</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>sudo<span class="w"> </span>docker<span class="w"> </span>inspect<span class="w"> </span>netops-mcp<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{range .Config.Env}}{{println .}}{{end}}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>USE_REAL_DEVICES<span class="w">   </span><span class="c1"># expect false</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Redis reachable from MCP (the recurring DNS gotcha — reconcile self-heals, verify anyway)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>netops-mcp<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os,redis;print(redis.from_url(os.getenv(&#39;REDIS_URL&#39;,&#39;redis://redis:6379&#39;)).ping())&quot;</span>
+</code></pre></div>
+Expect: MCP 200, UI 200, all containers <code>Up</code>, <code>USE_REAL_DEVICES=false</code>, redis ping <code>True</code>.</p>
+<p><strong>Flush stale state so the demo starts clean:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">for</span><span class="w"> </span>q<span class="w"> </span><span class="k">in</span><span class="w"> </span>approval_queue<span class="w"> </span>approved_history<span class="w"> </span>rejected_history<span class="w"> </span>dead_letter_queue<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>netops-redis<span class="w"> </span>redis-cli<span class="w"> </span>DEL<span class="w"> </span><span class="nv">$q</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>netops-redis<span class="w"> </span>redis-cli<span class="w"> </span>--scan<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;incident_active:*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-r<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>netops-redis<span class="w"> </span>redis-cli<span class="w"> </span>DEL
+</code></pre></div></p>
+<p><strong>Warm the models</strong> (cold start is 30–60s — do one throwaway call so the live demo is snappy):
+trigger one incident (below), let it complete, then flush again.</p>
+<p><strong>Smoke (must be green):</strong> the 4-incident smoke from <code>TEST_PLAN.md</code> §8 — one per specialist + VA-NO-CLI.</p>
+<hr />
+<h2 id="2-the-core-loop-incident-triage-specialist-human-approval">2. The core loop — incident → triage → specialist → human approval<a class="headerlink" href="#2-the-core-loop-incident-triage-specialist-human-approval" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Trigger</strong> an incident (or let a router syslog arrive). Manual trigger:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/incident/trigger<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-MCP-API-Key: &lt;MCP_API_KEY&gt;&quot;</span>
+</code></pre></div>
+   (returns <code>incident_type: ospf_neighbor_down</code> for router-1)</li>
+<li><strong>Narrate the flow</strong> (it completes in ~60–90s): the <strong>Team Leader</strong> does <em>deterministic</em> regex triage
+   (<code>ospf_neighbor_loss_dead_timer → stability</code>), delegates over A2A; the <strong>Stability specialist</strong>
+   analyzes (root cause + evidence + proposed fix + confidence).</li>
+<li><strong>Show the approval card</strong> in the UI (<code>:8501</code>): root_cause, evidence list, proposed_fix commands,
+   risk level, confidence. Emphasize: <strong>nothing is applied without human approval.</strong></li>
+<li><strong>Approve</strong> (or reject) in the UI → card moves to history; the change-executor would apply it.
+   <em>Talking point:</em> destructive commands (<code>write erase</code>, <code>reload</code>) are <strong>hard-blocked</strong> before they ever
+   reach a human (confidence-scorer gate).</li>
+</ol>
+<h3 id="2a-multi-vendor-evpn-vxlan-variant-added-2026-05-30">2a. Multi-vendor EVPN-VXLAN variant (added 2026-05-30)<a class="headerlink" href="#2a-multi-vendor-evpn-vxlan-variant-added-2026-05-30" title="Permanent link">&para;</a></h3>
+<p>Same pipeline, different protocol family — shows the <strong>3-way protocol-family dispatcher</strong> (OSPF / BGP-unicast / EVPN-VXLAN) the stability specialist now runs.</p>
+<ol>
+<li><strong>Trigger</strong> an EVPN fault. Pick one (all route to <code>stability</code> with <code>tier="overlay"</code>):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># NVE / VTEP unreachable (NX-OS-style)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/incident/trigger<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;X-MCP-API-Key: &lt;MCP_API_KEY&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;device_id&quot;:&quot;leaf-nx&quot;,&quot;syslog&quot;:&quot;%NVE-2-VTEP_LOSS: Lost reachability to remote VTEP 10.0.1.13&quot;}&#39;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># BGP-EVPN session admin-shut</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/incident/trigger<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;X-MCP-API-Key: &lt;MCP_API_KEY&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;device_id&quot;:&quot;leaf-nx&quot;,&quot;syslog&quot;:&quot;%BGP-5-ADJCHANGE: neighbor 10.0.0.1 Down L2VPN EVPN session admin shut&quot;}&#39;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># MAC inconsistency (vendor-agnostic)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8001/incident/trigger<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;X-MCP-API-Key: &lt;MCP_API_KEY&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;device_id&quot;:&quot;leaf-nx&quot;,&quot;syslog&quot;:&quot;MAC_MOVE: host 0050.5600.0001 moved between VTEPs 10.0.1.12 and 10.0.1.13&quot;}&#39;</span>
+</code></pre></div></li>
+<li><strong>Narrate the dispatch:</strong> triage emits <code>agent=stability, tier=overlay, fault_type=evpn_*</code>; ContextNode's dispatcher routes to <code>_execute_overlay()</code> (calls <code>evpn_parser</code> + <code>bgp_summary</code>, NOT <code>ospf_parser</code>); AnalyzeNode renders the <strong>multi-vendor EVPN prompt</strong> with NX-OS / EOS / SR Linux fix syntax.</li>
+<li><strong>Show the approval card:</strong> root cause cites the actual peer address / EVI / VTEP IP from <code>evpn_parser</code>; <code>pattern_id</code> is one of <code>evpn_peer_admin_shut</code>, <code>evpn_peer_down</code>, <code>evpn_vtep_unreachable</code>, <code>evpn_vni_state</code>, <code>evpn_mac_inconsistency</code>.</li>
+<li><strong>Optional architect follow-up:</strong> in the Architect chat, ask "What's the EVPN state of leaf-nx?" — the va-v2 ReAct loop calls <code>evpn_parser</code> and explains the state. SYSTEM_PROMPT (updated <code>08f58c6</code>) now knows the fabric: spine1 / leaf-nx / leaf-ar / NX9K / vEOS.</li>
+</ol>
+<p><em>Talking point:</em> same pipeline, <strong>different protocol world</strong> — the stability specialist used to be OSPF-with-EVPN-bolted-on; after the EVPN-native push it's a routing-control-plane specialist that dispatches on protocol family. See <code>EVPN_NATIVE_ARCHITECTURE.md</code> for the architecture.</p>
+<h3 id="2b-enterprise-validation-stack-on-the-approval-card-added-2026-05-30">2b. Enterprise validation stack on the approval card (added 2026-05-30)<a class="headerlink" href="#2b-enterprise-validation-stack-on-the-approval-card-added-2026-05-30" title="Permanent link">&para;</a></h3>
+<p>The card now carries the <strong>enterprise validation chain</strong> — what enterprise architects look for to fund pilots. Every approve/reject decision lands with:</p>
+<ol>
+<li><strong>⚖️ Change Risk Officer (CRO)</strong> — <code>ALLOW / MANUAL_REVIEW / BLOCK</code> verdict
+   with <strong>cited policies</strong> (e.g. <code>business_hours_only</code>, <code>pci_dss_freeze</code>).
+   Auditable: the operator's compliance officer can defend this to an
+   external auditor. Policies are customer-replaceable via
+   <code>agents/change_risk_officer/policies.json</code>.</li>
+<li><strong>💥 Blast Radius Forecaster (BRF)</strong> — business-impact translation.
+   "VNI 10010 hosts tenant1-payment-processing; $340K/hour SLA exposure;
+   4,200 users at risk; PCI-DSS + SOX compliance tags." Speaks CFO,
+   not "8 devices."</li>
+<li><strong>🔬 DT Validation</strong> — Layer 1 (graph_sim) or Layer 2 (containerlab live).
+   Layer 3 (<code>DTTwinManager</code> persistent shadow with real vrnetlab images)
+   is the scalability story for V3 — slide <code>DT_V3_PERSISTENT_SHADOW.md</code>.</li>
+<li><strong>🔁 Post-change Verifier (PCV)</strong> — baseline captured pre-approval;
+   diff runs post-apply. Verdicts: <code>PASSED</code>, <code>REGRESSION_DETECTED</code>,
+   <code>FIX_DID_NOT_TAKE</code>, <code>INDETERMINATE_PROBABLY_OK</code>. Closes the
+   autonomous-remediation loop.</li>
+</ol>
+<p><em>Talking point:</em> "Every fix the platform proposes carries four
+enterprise-grade gates before it touches your fabric — risk policy,
+blast radius, DT simulation, and post-change diff. None of them are
+LLM judgments; each is rule-based and citable. That's what makes this
+sellable into a SOX/PCI environment."</p>
+<h2 id="3-determinism-talking-point">3. Determinism talking point<a class="headerlink" href="#3-determinism-talking-point" title="Permanent link">&para;</a></h2>
+<p>Re-trigger the <strong>same</strong> incident → <strong>same agent, same routing, every time</strong> (deterministic regex triage —
+not an LLM coin-flip). Reference <code>TEST_PLAN.md</code> determinism contract: routing is bit-exact by construction.</p>
+<h2 id="4-virtual-architect-react-design-chat">4. Virtual Architect — ReAct design chat<a class="headerlink" href="#4-virtual-architect-react-design-chat" title="Permanent link">&para;</a></h2>
+<p>Health verified: <code>GET /api/architect/health</code> → ok, 10 read-only tools. Ask via the UI chat (or
+<code>POST /api/architect/ask</code>). Watch the streamed ReAct events: <code>thought → tool_call → observation →
+final_answer</code>. Talking point: the architect is <strong>read-only</strong> — it advises, never emits CLI.</p>
+<p><strong>⚠️ Demo ONLY a conceptual design question — NOT a device-state / "fix" question (on the fallback model).</strong>
+Verified live behavior on the current <strong>gpt-4o-mini fallback</strong>:
+- <strong>USE THIS (verified clean):</strong> <em>"Compare HSRP, VRRP, and GLBP for first-hop redundancy at a campus
+  distribution layer and recommend one with the design rationale. Do not give CLI."</em> → streams <code>open →
+  thought → final_answer</code> with a full comparison, <strong>0 CLI rejections</strong>. Reliable on stage.
+- <strong>DON'T demo device-state prompts</strong> ("is OSPF healthy on router-1…", even with "no CLI"): the model
+  <em>correctly</em> calls <code>ospf_parser</code> and gets the data, but then keeps emitting CLI in its answer; the
+  read-only guard rejects it and re-asks until the 8-turn budget is exhausted → <em>"couldn't reach a
+  conclusion."</em> The ReAct tool-loop starts but the answer never lands. (Two prompts verified to loop.)</p>
+<p><strong>Talking point either way:</strong> the read-only safety guard is <em>working</em> — it will not let the architect
+emit configuration, period. As of 2026-05-30 the VA runs <strong>Qwen2.5-7B-Instruct + va-v2 LoRA</strong> (self-hosted
+vLLM on AWS, <code>10.42.20.202:8005</code>), gate-cleared per the gated-finetuning firewall. The retired Phi-4 v1
+adapter was rejected by the same gate (worse than gpt-4o-mini) and is no longer in the path.</p>
+<h2 id="5-cascade-dedup-the-differentiator">5. Cascade / dedup (the differentiator)<a class="headerlink" href="#5-cascade-dedup-the-differentiator" title="Permanent link">&para;</a></h2>
+<p>Fire 3 incidents on the <strong>same device</strong> within 60s → the team-leader buffers, picks the <strong>root cause</strong>
+(LINK over OSPF/BGP) and <strong>suppresses the victims</strong> → <strong>one</strong> approval card, not three. (3 incidents on
+3 <em>different</em> devices → 3 cards.)</p>
+<h2 id="6-transcripts-verifiability-tab-8505">6. Transcripts &amp; verifiability tab (<code>:8505</code>)<a class="headerlink" href="#6-transcripts-verifiability-tab-8505" title="Permanent link">&para;</a></h2>
+<p>Show the audit trail / transcripts (TimescaleDB-backed — restored). Every recommendation has a logged
+reasoning chain id.</p>
+<h2 id="6a-compliance-audit-trail-8501-history-tab-csv">6a. Compliance audit trail (<code>:8501</code> History tab → CSV)<a class="headerlink" href="#6a-compliance-audit-trail-8501-history-tab-csv" title="Permanent link">&para;</a></h2>
+<p><strong>Target audience:</strong> CISO, Compliance Lead, Audit Manager.
+<strong>Regulation anchors:</strong> DORA (EU) 2022/2554 + NIS2 (EU) 2022/2555.
+<strong>Pre-condition:</strong> 2–3 incidents approved in §2/§3 so <code>agent_reasoning_chains</code> has content.</p>
+<blockquote>
+<p><strong>Full 90-second walkthrough script → <code>docs/pitch_assets/COMPLIANCE_DEMO_RUNBOOK.md</code></strong>
+(includes regulation cue card, objection handling, and timing guide).</p>
+</blockquote>
+<p><strong>Step 1 — Hook (~20s).</strong></p>
+<blockquote>
+<p>"Every recommendation lands as a timestamped row in TimescaleDB — chain ID, named
+approver, tamper-evident HMAC. What auditors want is a mapping into their regulation.
+Watch."</p>
+</blockquote>
+<p><strong>Step 2 — Pull (~20s).</strong> Click "Download compliance CSV" in the History tab footer.
+Open the file. Resize <code>dora_controls</code> and <code>nis2_controls</code> columns.</p>
+<p><strong>Step 3 — Walk one row (~30s).</strong> Pick the EVPN VTEP-loss row. Read across:
+- <code>started_at</code> → Art.10 §1 (detection time)
+- <code>severity=high</code> → Art.10 §2 / Art.17 §1 (classification)
+- <code>root_cause</code> → Art.17 §3 (RCA)
+- <code>proposed_commands</code> → Art.9 §4 (change management)
+- <code>approver</code> + <code>decision_rationale</code> → Art.5 §2 / NIS2 Art.21(2)(i) (named approver)
+- <code>outcome=resolved</code> → Art.17 §3 / NIS2 Art.21(2)(f) (lessons learned)</p>
+<blockquote>
+<p>"One row in your auditor's spreadsheet. One defensible change."</p>
+</blockquote>
+<p><strong>Step 4 — Close (~20s).</strong></p>
+<blockquote>
+<p>"Today this is a CSV. Item 6 (next sprint) derives the mapping automatically from
+the catalogue scenario. The audit trail is a by-product of the platform, not a
+separate compliance system."</p>
+</blockquote>
+<p><strong>Fallback:</strong> if the button errors, open <code>docs/pitch_assets/compliance_sample.csv</code>
+(pre-generated 7-row golden CSV, pre-loaded in a Numbers tab). Narrate Step 3
+identically. The narrative survives a DB outage.</p>
+<p><strong>Files:</strong>
+- <code>compliance/control_map.py</code> — DORA/NIS2 mapping (20-row table from the plan §2)
+- <code>compliance/export_compliance_csv.py</code> — TimescaleDB → CSV exporter
+- <code>docs/pitch_assets/compliance_sample.csv</code> — stage fallback</p>
+<hr />
+<h2 id="7-stretch-real-device-lab-only-if-rehearsed-stable">7. Stretch: real-device lab (only if rehearsed + stable)<a class="headerlink" href="#7-stretch-real-device-lab-only-if-rehearsed-stable" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start the EVE-NG router VMs (eveng-prod) — they don't auto-start after the nightly cycle.</li>
+<li><code>sed -i 's/USE_REAL_DEVICES=false/USE_REAL_DEVICES=true/' .env &amp;&amp; docker compose up -d --no-deps --force-recreate mcp-server</code></li>
+<li>Verify host→router reachability (the self-healing <code>netops-mgmt-ip.timer</code> puts the host on <code>192.168.255.1</code>).</li>
+<li>Known real-device gaps: <code>aaa_checker</code> 500, <code>connectivity_tester</code> intermittent — avoid those tools on stage.
+<strong>Recommendation: demo in mock; only switch to real if the dry-run is clean.</strong></li>
+</ol>
+<h2 id="8-if-something-breaks-mid-demo">8. If something breaks mid-demo<a class="headerlink" href="#8-if-something-breaks-mid-demo" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>MCP tool errors / Redis <code>-3</code>:</strong> <code>sudo /usr/local/bin/netops-boot-reconcile.sh</code> (heals DNS + restarts deps).</li>
+<li><strong>A model is slow/erroring:</strong> it auto-falls-back to gpt-4o-mini — keep going, it's expected.</li>
+<li><strong>A panel is stuck:</strong> refresh the UI; queues persist in Redis.</li>
+<li><strong>Worst case:</strong> re-run the morning pre-flight; the stack is reproducible.</li>
+</ul>
+<h2 id="9-gono-go-per-component-set-during-rehearsal">9. Go/no-go per component (set during rehearsal)<a class="headerlink" href="#9-gono-go-per-component-set-during-rehearsal" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Demo on</th>
+<th>Fallback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triage/routing</td>
+<td>deterministic engine</td>
+<td>— (always works)</td>
+</tr>
+<tr>
+<td>Stability / Troubleshooting</td>
+<td>fine-tune if gate passes</td>
+<td>gpt-4o-mini</td>
+</tr>
+<tr>
+<td>Security</td>
+<td><strong>gpt-4o-mini</strong> (Mistral hallucination gate not yet met)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Architect</td>
+<td><strong>Qwen-7B + va-v2 LoRA</strong> (gate-cleared 2026-05-30)</td>
+<td>gpt-4o-mini</td>
+</tr>
+<tr>
+<td><strong>EVPN-VXLAN multi-vendor incident</strong></td>
+<td><strong>mock</strong> (3-leaf fabric: spine1 NX9K + leaf-nx NX9K + leaf-ar vEOS); fault classes verified end-to-end via §2a</td>
+<td>OSPF incident in §2 (always works)</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td><strong>mock</strong></td>
+<td>real-lab stretch</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-pitch-demo-scripts">10. Pitch Demo Scripts<a class="headerlink" href="#10-pitch-demo-scripts" title="Permanent link">&para;</a></h2>
+<p>The runbook above is rehearsal/operator-facing. This section is <strong>pitch-facing</strong> —
+three scripts (5/15/30 min) that turn the live system into a paid-pilot conversation.
+Audience changes per script; the arc does not:</p>
+<blockquote>
+<p>Hook → trigger an EVPN incident on prod-dc → walk the 7-pass chain → CRO blocks on
+a cited policy → BRF quotes the dollar exposure → close with a pilot ask.</p>
+</blockquote>
+<p>The same Saturday-on-Saturday demo of <code>%NVE-2-VTEP_LOSS</code> against <code>leaf-nx</code> is the spine
+of all three. The differences are depth, time spent in the architecture, and which
+files we click into.</p>
+<p><strong>Read this once before every pitch:</strong>
+- Every claim is defensible against a file path in the repo. Architects will ask.
+- "AI" appears in the pitch zero times unless they say it first. We say <em>deterministic
+  triage</em>, <em>rule-based gate</em>, <em>cited policy</em>. The LLM only writes the diagnosis text;
+  every gate is code.
+- The CRO <code>BLOCK</code> on <code>weekend_freeze</code> is the strongest single moment in the demo.
+  Build the timing around it. Do not rush past it.
+- If anything breaks, the recovery is to <strong>switch to a pre-recorded approval card
+  screenshot</strong> kept in <code>docs/pitch_assets/</code> and narrate the rest. The pitch survives
+  a stack glitch; it does not survive a "let me debug this" detour.</p>
+<hr />
+<h3 id="101-the-5-minute-pitch-executive-vp-infrastructure-ciso">10.1 The 5-minute pitch (executive: VP-Infrastructure / CISO)<a class="headerlink" href="#101-the-5-minute-pitch-executive-vp-infrastructure-ciso" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> book a 45-minute pilot scoping call.</p>
+<p><strong>Pre-flight (do silently, before they walk in):</strong>
+- Browser tabs open: UI <code>:8501</code> Approvals, UI <code>:8501</code> Architect, <code>:8505</code> Transcripts.
+- One throwaway incident already fired so models are warm.
+- Date check: confirm it really is Saturday (or any frozen weekday in
+  <code>policies.json::business_hours_only.allowed_weekdays</code>). If it isn't, manually set
+  <code>params.frozen_weekdays</code> in a scratch copy of <code>policies.json</code> <em>before</em> the pitch —
+  the CRO BLOCK is the money moment and it MUST fire.</p>
+<h4 id="step-1-the-hook-30s">Step 1 — The hook (~30s)<a class="headerlink" href="#step-1-the-hook-30s" title="Permanent link">&para;</a></h4>
+<p>What the user does: open with a closed laptop.
+What the audience sees: nothing yet.
+What the user says (verbatim):</p>
+<blockquote>
+<p>"Most production outages come from change. Most change is human. Your operators are
+tired, they're on a 02:00 page, and they paste the right command on the wrong device.
+We built a platform that gates every proposed change against your policies, your
+blast radius, and a digital twin — before a human even sees the approval. Let me
+show you."</p>
+</blockquote>
+<h4 id="step-2-trigger-the-incident-30s">Step 2 — Trigger the incident (~30s)<a class="headerlink" href="#step-2-trigger-the-incident-30s" title="Permanent link">&para;</a></h4>
+<p>What the user does: open laptop, run from a terminal already showing the curl prompt:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://&lt;APP_HOST_IP&gt;:8001/incident/trigger<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;X-MCP-API-Key: &lt;MCP_API_KEY&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;device_id&quot;:&quot;leaf-nx&quot;,&quot;syslog&quot;:&quot;%NVE-2-VTEP_LOSS: Lost reachability to remote VTEP 10.0.1.13&quot;}&#39;</span>
+</code></pre></div>
+<p>What the audience sees: a one-line <code>{"status":"accepted"}</code> reply.
+What the user says:</p>
+<blockquote>
+<p>"That's a real EVPN-VXLAN syslog from an NX9K leaf. Cross-vendor fabric — NX9K
+spine, NX9K leaf, Arista vEOS leaf. VNI 10010 is the tenant-payment-processing
+overlay. Watch what the platform does in the next sixty seconds."</p>
+</blockquote>
+<h4 id="step-3-walk-the-chain-2-min">Step 3 — Walk the chain (~2 min)<a class="headerlink" href="#step-3-walk-the-chain-2-min" title="Permanent link">&para;</a></h4>
+<p>What the user does: switch to the UI <code>:8501</code>, Approvals tab. A new card lands within
+~60s. Click it open. Walk these in order, pointing at each block of the card:</p>
+<table>
+<thead>
+<tr>
+<th>What you point at</th>
+<th>What you say (one sentence each)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top of card: <code>agent=stability, tier=overlay, fault_type=evpn_vtep_unreachable</code></td>
+<td>"Triage is deterministic — regex rules, no LLM. Same input, same routing, every time."</td>
+</tr>
+<tr>
+<td>Diagnosis block</td>
+<td>"The specialist queried the live EVPN state of the leaf, the BGP-EVPN session, and the KG baseline, then proposed a fix in NX-OS syntax."</td>
+</tr>
+<tr>
+<td>Pass 1 — ConfidenceScorer</td>
+<td>"Pre-sim gate score from risk signals plus the LLM's own confidence."</td>
+</tr>
+<tr>
+<td>Pass 2 — Fault correctness</td>
+<td>"Rule-based check that the fix actually addresses the fault type. The LLM does not get to grade itself."</td>
+</tr>
+<tr>
+<td>Pass 3 — Graph Simulator</td>
+<td>"Layer 1 digital twin. In-memory reachability, blast radius, SPF simulation against the KG."</td>
+</tr>
+<tr>
+<td>Pass 4 — Containerlab twin</td>
+<td>"Layer 2 digital twin. The fix is applied to a real Nokia SR Linux + cEOS container fabric. Validated before a human sees it."</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-4-the-cro-money-shot-1-min">Step 4 — The CRO money shot (~1 min)<a class="headerlink" href="#step-4-the-cro-money-shot-1-min" title="Permanent link">&para;</a></h4>
+<p>What the user does: scroll to the <code>⚖️ Change Risk Officer</code> panel. Make sure the
+audience is looking at it. Slow down.</p>
+<p>What the audience sees: a red <code>BLOCK</code> verdict with cited policies. Specifically
+<code>policy_id: weekend_freeze</code> (because today is Saturday).</p>
+<p>What the user says (slow, verbatim):</p>
+<blockquote>
+<p>"The platform just blocked its own fix. Why? Because today is Saturday and your
+weekend change-freeze policy says no automated changes on weekends. That policy
+isn't an LLM opinion — it's a row in a JSON file your GRC team owns. See
+<code>agents/change_risk_officer/policies.json</code>. The platform team owns the policy
+engine. Your auditor owns the data. This is the citation an external auditor
+needs to sign off your SOX or PCI control."</p>
+</blockquote>
+<p>Pause. Let it land. This is the demo.</p>
+<h4 id="step-5-the-brf-money-shot-45s">Step 5 — The BRF money shot (~45s)<a class="headerlink" href="#step-5-the-brf-money-shot-45s" title="Permanent link">&para;</a></h4>
+<p>What the user does: scroll to the <code>💥 Blast Radius Forecaster</code> panel.</p>
+<p>What the audience sees: a dollar figure (~$340K/hr SLA exposure), a tenant count
+(~4,200 users), compliance tags (PCI-DSS, SOX).</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"And here's what that fix would have cost if we'd gotten it wrong. VNI 10010 hosts
+tenant-payment-processing — $340K/hour SLA exposure, 4,200 users, PCI-DSS plus SOX
+tagged. The KG knows because the topology is in code: see <code>fabric.yaml</code>. The
+approval card now speaks CFO, not router."</p>
+</blockquote>
+<h4 id="step-6-close-30s">Step 6 — Close (~30s)<a class="headerlink" href="#step-6-close-30s" title="Permanent link">&para;</a></h4>
+<p>What the user does: close the card. Look at the audience. Do not click anything else.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"Sixty seconds, end to end. Every decision cited. The fix never touched the fabric.
+That's what changes the economics of your NOC. Can we book forty-five minutes next
+week to scope a 60-day pilot?"</p>
+</blockquote>
+<h4 id="what-if-x-breaks-during-the-5-min-demo">What if X breaks during the 5-min demo<a class="headerlink" href="#what-if-x-breaks-during-the-5-min-demo" title="Permanent link">&para;</a></h4>
+<p><strong>(a) Incident never lands in the UI within 90s.</strong>
+Recovery: switch to the second already-open tab <code>:8501</code> showing a previously fired
+EVPN approval card (kept open from the warm-up run). Say <em>"I already had one fired
+earlier — same shape, here it is"</em> and walk steps 3-5 against that card. The card
+state is in Redis and persists across UI refreshes; the previous one is still there
+unless you cleared <code>approval_queue</code>.</p>
+<p><strong>(b) The CRO panel does not BLOCK (we miscalculated the weekday).</strong>
+Recovery: the card still shows <code>pci_dss_freeze</code> or <code>hipaa_no_auto</code> for the
+tenant1-payment-processing tenant tag. Pivot the script: <em>"Today the freeze policy
+that fires is PCI-DSS — quarter-end audit window — and you can see it cited by
+<code>policy_id: pci_dss_freeze</code>. Same shape: rule-based, cited, auditable."</em> If neither
+fires, fall back to the high-risk-command BLOCK by re-triggering the incident with a
+syslog that pulls <code>clear ip bgp *</code> into the proposed fix (see §2a variants), which
+trips <code>high_risk_commands</code> deterministically.</p>
+<p><strong>(c) LLM endpoint is cold and the specialist takes &gt;90s to return.</strong>
+Recovery: while waiting, narrate Pass 1-7 against the architecture in
+<code>EVPN_NATIVE_ARCHITECTURE.md §4</code> shown on a second screen. The chain still arrives;
+the silence is fatal, not the latency. Have one slide queued with the 7-pass diagram
+ready to put up.</p>
+<h4 id="what-not-to-say-in-the-5-min">What NOT to say in the 5-min<a class="headerlink" href="#what-not-to-say-in-the-5-min" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Do <strong>not</strong> say "AI-powered". Say "rule-based gate" and "deterministic triage".</li>
+<li>Do <strong>not</strong> say "fully autonomous". Say "human-in-the-loop with auditable gates".</li>
+<li>Do <strong>not</strong> quote MTTR numbers as if they are the customer's — the ROI math in
+  <code>PITCH_ONE_PAGER.md</code> is illustrative and labeled as such. Their MTTR is whatever
+  the pilot measures.</li>
+<li>Do <strong>not</strong> claim the platform "predicts" outages. It validates proposed fixes
+  against a twin. That is enough.</li>
+</ul>
+<hr />
+<h3 id="102-the-15-minute-pitch-director-of-network-engineering">10.2 The 15-minute pitch (Director of Network Engineering)<a class="headerlink" href="#102-the-15-minute-pitch-director-of-network-engineering" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> secure a technical discovery call with their team + a target use case.</p>
+<p><strong>Pre-flight:</strong> same as §10.1 plus open these files in the editor on a second screen:
+- <code>agents/change_risk_officer/policies.json</code>
+- <code>fabric.yaml</code>
+- <code>agents/team_leader/workflow/triage_rules.py</code>
+- <code>tests/test_kg_evpn_sync.py</code> (specifically the cross-vendor RT-match test)
+- <code>EVPN_NATIVE_ARCHITECTURE.md</code> open at §4 and §6</p>
+<h4 id="step-1-the-hook-1-min">Step 1 — The hook (~1 min)<a class="headerlink" href="#step-1-the-hook-1-min" title="Permanent link">&para;</a></h4>
+<p>What the user says (verbatim):</p>
+<blockquote>
+<p>"Your team owns thousands of devices across multiple vendors. Every change is one
+typo away from a four-hour MTTR call. The state of the art is a ticketing tool
+that asks an engineer to read a runbook at 03:00. We built a platform that does
+the diagnosis, validates the fix on a digital twin, gates it against your written
+policies, and tells you in dollars what you're risking — before your engineer
+even opens the ticket. Let me show you how it works."</p>
+</blockquote>
+<h4 id="step-2-trigger-and-walk-3-min">Step 2 — Trigger and walk (~3 min)<a class="headerlink" href="#step-2-trigger-and-walk-3-min" title="Permanent link">&para;</a></h4>
+<p>Run the same <code>%NVE-2-VTEP_LOSS</code> trigger as §10.1. Open the approval card. For each
+ValidateNode pass, open the <strong>actual log line</strong> in the terminal (you should have
+<code>docker logs -f netops-stability-agent</code> streaming on a second tab):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[ValidateNode] Pass 1 ConfidenceScorer score=0.87 path=containerlab
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>[ValidateNode] Pass 2 Fault correctness: passed (evpn_vtep_unreachable rule matched)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>[ValidateNode] Pass 3 GraphSimulator: 2 devices in blast radius, no SPF break
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>[ValidateNode] Pass 4 ContainerlabManager.validate_evpn: topology rendered
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>[ValidateNode] Pass 5 CRO verdict=BLOCK policies=[weekend_freeze]
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>[ValidateNode] Pass 6 BlastRadius $340K/hr, 4200 users, tags=[pci_dss, sox]
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>[ValidateNode] Pass 7 PCV baseline captured: ref=&lt;uuid&gt;
+</code></pre></div>
+<p>What the user says, pointing at the log stream:</p>
+<blockquote>
+<p>"These aren't slides — those are the log lines coming off the container right now.
+Seven passes, each one writing structured evidence into the card. Every line you
+see is a unit-tested function in <code>agents/shared/validate_node.py</code>."</p>
+</blockquote>
+<h4 id="step-3-architecture-walk-3-min">Step 3 — Architecture walk (~3 min)<a class="headerlink" href="#step-3-architecture-walk-3-min" title="Permanent link">&para;</a></h4>
+<p>Switch to <code>EVPN_NATIVE_ARCHITECTURE.md §4</code> (the dispatcher diagram). Walk it.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"Three-way dispatch on protocol family. EVPN syslog hits <code>_execute_overlay</code>. BGP
+unicast hits <code>_execute_underlay_bgp</code>. OSPF hits the legacy <code>_execute_underlay</code>.
+Each branch fetches the right data shape, builds a vendor-specific prompt, and
+returns a fault classification from a closed set. That dispatcher is twelve lines
+of code. The reason it works is because triage emits a <code>tier</code> — <code>overlay</code>,
+<code>underlay</code>, <code>transport</code>, <code>platform</code>, <code>security</code>, <code>service</code> — and the dispatcher
+reads it. Adding IS-IS or MPLS-TE as a new family is a four-step recipe; it does
+not touch the OSPF path."</p>
+</blockquote>
+<p>Then switch to <code>EVPN_NATIVE_ARCHITECTURE.md §6</code> (the KG schema). Walk the
+<code>EVI / VTEP / BGPEVPNPeer / MACRoute</code> graph.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"The KG isn't a database of tables with foreign-key-as-string IPs. It's the actual
+topology. MAC mobility — has this MAC moved across VTEPs — is a two-hop traversal.
+Blast radius — which MACs lose connectivity if this VTEP fails — is a single
+match. These are the queries that take your team an hour in a spreadsheet today."</p>
+</blockquote>
+<h4 id="step-4-the-silent-bug-demo-2-min">Step 4 — The silent-bug demo (~2 min)<a class="headerlink" href="#step-4-the-silent-bug-demo-2-min" title="Permanent link">&para;</a></h4>
+<p>Open <code>tests/test_kg_evpn_sync.py</code> and find the cross-vendor RT-match invariant test
+(search for <code>test_rt_extraction</code> in <code>tests/test_kg_evpn_sync.py</code>).</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"This test pins the RT-match invariant between the NX9K leaf and the Arista vEOS
+leaf. Both should advertise <code>65000:10010</code> for VNI 10010. If they ever diverge — if
+someone fat-fingers an RT on one side — this test fails, the drift detector pages,
+and the platform refuses to propose any fix until you fix the intent. This is the
+kind of silent bug that takes a real datacenter team four hours to isolate at
+02:00. We catch it in the YAML schema at commit time. See <code>EVPN_NATIVE_ARCHITECTURE.md §6.2</code>
+for the cross-vendor RT-consistency query that powers it."</p>
+</blockquote>
+<h4 id="step-5-cro-policiesjson-2-min">Step 5 — CRO + policies.json (~2 min)<a class="headerlink" href="#step-5-cro-policiesjson-2-min" title="Permanent link">&para;</a></h4>
+<p>Switch back to the approval card. Show the BLOCK. Then open
+<code>agents/change_risk_officer/policies.json</code> in the editor.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"The policy that just blocked your fix is in this file. Six policies ship out of
+the box: <code>business_hours_only</code>, <code>weekend_freeze</code>, <code>quarter_close_freeze</code>,
+<code>pci_dss_freeze</code>, <code>hipaa_no_auto</code>, <code>high_risk_commands</code>. Your team owns this file.
+Your auditor reviews this file. The policy code is in <code>policies.py</code> — that's
+ours. The data is yours. In a real deployment this is fed from ServiceNow GRC or
+Drata. None of the gates are LLM judgments — every BLOCK is a regex match or a
+calendar check."</p>
+</blockquote>
+<h4 id="step-6-brf-roi-bridge-1-min">Step 6 — BRF + ROI bridge (~1 min)<a class="headerlink" href="#step-6-brf-roi-bridge-1-min" title="Permanent link">&para;</a></h4>
+<p>Scroll to the BRF panel. Walk the dollar figure.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"The dollar figure isn't fabricated — it's the tenant SLA from your CMDB times
+the worst-case convergence window for this fault class. For <code>evpn_vtep_unreachable</code>,
+the convergence window is 90s — see <code>agents/blast_radius_forecaster/agent.py</code>.
+When your CFO asks 'what's the autonomous platform actually saving us' you can
+answer it in dollars, per incident, with cited evidence."</p>
+</blockquote>
+<h4 id="step-7-close-3-min-qa-buffer">Step 7 — Close (~3 min Q&amp;A buffer)<a class="headerlink" href="#step-7-close-3-min-qa-buffer" title="Permanent link">&para;</a></h4>
+<p>What the user says:</p>
+<blockquote>
+<p>"What I'd like to do next: book ninety minutes with your senior engineers and your
+compliance lead. We bring our team. You bring one fault class you currently chase
+in spreadsheets. We come back in two weeks with a pilot plan that says: drop your
+topology in, hook to NetBox, validate three fault classes for sixty days, measure
+MTTR delta and false-positive rate. What would the right use case be for your
+team?"</p>
+</blockquote>
+<h4 id="what-if-x-breaks-during-the-15-min-demo">What if X breaks during the 15-min demo<a class="headerlink" href="#what-if-x-breaks-during-the-15-min-demo" title="Permanent link">&para;</a></h4>
+<p><strong>(a) Containerlab Pass 4 returns "topology renderable, deploy timed out".</strong>
+Recovery: this is a known docker-in-docker race on cold start. Say: *"Pass 4 has two
+modes — render and deploy. Render is what runs in the workshop instance; deploy is
+what runs in production. The fix and the assertions are identical." Show
+<code>agents/shared/containerlab_manager.py::validate_evpn</code> and point at the render path.
+The audience sees the function, the architecture is intact.</p>
+<p><strong>(b) MCP returns empty data on <code>evpn_parser</code> (real-device mode flipped on by mistake).</strong>
+Recovery: <code>sudo docker exec netops-mcp env | grep USE_REAL_DEVICES</code> from the
+streaming terminal — confirm it's <code>true</code>, flip it: <code>sed -i
+'s/USE_REAL_DEVICES=true/USE_REAL_DEVICES=false/' /home/ubuntu/agentic-netops-mvp/.env
+&amp;&amp; sudo docker compose up -d --no-deps --force-recreate mcp-server</code>. Recovery
+takes ~20s. Talking point during the wait: <em>"This is the mock/real toggle — same
+adapter contract, different backend; the agents don't know the difference."</em></p>
+<p><strong>(c) The LLM emits a malformed pattern_id and Pass 2 fails the fix.</strong>
+Recovery: this is actually a <em>good</em> demo moment. Say: <em>"Pass 2 just rejected its own
+specialist's fix because it didn't match the expected pattern_id taxonomy in
+<code>agents/stability/workflow/analyze_node.py::KNOWN_PATTERN_IDS</code>. This is the
+self-defense layer — we don't trust the LLM's structured output. We grade it
+against a closed set."</em> Re-trigger and move on.</p>
+<h4 id="what-not-to-say-in-the-15-min">What NOT to say in the 15-min<a class="headerlink" href="#what-not-to-say-in-the-15-min" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Do <strong>not</strong> promise multi-vendor parity across <strong>every</strong> NOS feature. Say:
+  "first-class for the vendors in the adapter registry — Cisco IOS-XE, NX-OS,
+  Arista EOS, SR Linux, Mock. Adding a new NOS is a defined contract: see
+  <code>agents/shared/vendor_adapters/</code>."</li>
+<li>Do <strong>not</strong> call the digital twin a "production network simulator". Call it a
+  "high-fidelity validation surface for proposed fixes". The difference matters
+  to engineers.</li>
+<li>Do <strong>not</strong> quote 100% routing accuracy as "the platform is right 100% of the
+  time". The 100% is <strong>routing</strong>, not diagnosis. Diagnosis quality is in
+  <code>WORKSHOP_STATUS.md §4</code> and is mixed — be honest about it.</li>
+</ul>
+<hr />
+<h3 id="103-the-30-minute-deep-dive-chief-architect-sre-director">10.3 The 30-minute deep-dive (Chief Architect / SRE Director)<a class="headerlink" href="#103-the-30-minute-deep-dive-chief-architect-sre-director" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> discovery call with their architecture team + one named use case + access
+to their staging NetBox.</p>
+<p><strong>Pre-flight:</strong> same as §10.2 plus:
+- <code>docs/DT_V3_PERSISTENT_SHADOW.md</code> open on a second screen
+- <code>verifiability-api</code> transcripts UI <code>:8505</code> warm
+- The 5-layer architecture diagram (the ASCII one in <code>WORKSHOP_STATUS.md §2</code>) open
+  in markdown preview, or printed
+- <code>agents/shared/scope_policy.py</code> open in the editor</p>
+<h4 id="step-1-the-hook-1-min_1">Step 1 — The hook (~1 min)<a class="headerlink" href="#step-1-the-hook-1-min_1" title="Permanent link">&para;</a></h4>
+<p>Identical to §10.2 Step 1.</p>
+<h4 id="step-2-the-5-layer-architecture-4-min">Step 2 — The 5-layer architecture (~4 min)<a class="headerlink" href="#step-2-the-5-layer-architecture-4-min" title="Permanent link">&para;</a></h4>
+<p>Put up <code>WORKSHOP_STATUS.md §2</code> diagram. Walk top to bottom, naming each layer + its
+protocol contract.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"Five layers, three protocol contracts: ACP between UI and Team Leader, A2A
+between Team Leader and specialists, MCP between specialists and devices.
+Specialists never SSH directly. UI never writes Redis directly. These contracts
+are enforced by the code organization, not by hope. See
+<code>CLAUDE.md::Critical Architecture Rules</code>. Replacing a layer — say swapping
+Streamlit for a custom React UI — does not touch the agents. Replacing the LLM
+behind a specialist does not touch the MCP tools."</p>
+</blockquote>
+<h4 id="step-3-trigger-walk-the-chain-4-min">Step 3 — Trigger + walk the chain (~4 min)<a class="headerlink" href="#step-3-trigger-walk-the-chain-4-min" title="Permanent link">&para;</a></h4>
+<p>Same trigger as §10.1 / §10.2. This time, while the chain runs, open the streaming
+<code>docker logs -f netops-team-leader netops-stability-agent</code> view on the second
+screen and walk the A2A handoffs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[TeamLeader] classify_syslog: agent=stability tier=overlay fault_type=evpn_vtep_unreachable
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[TeamLeader] A2A delegate -&gt; a2a_stability_specialist_inbox
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[Stability] ContextNode dispatcher: tier=overlay -&gt; _execute_overlay
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>[Stability] MCP /tools/evpn_parser device=leaf-nx
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>[Stability] AnalyzeNode dispatcher: _build_evpn_prompt (multi-vendor)
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[Stability] LLM call: &lt;endpoint&gt; tokens=..., elapsed=...s
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>[Stability] ValidateNode: Pass 1-7 ...
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>[Stability] A2A respond -&gt; a2a_team_leader_inbox
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>[TeamLeader] approval_queue LPUSH
+</code></pre></div>
+<p>What the user says:</p>
+<blockquote>
+<p>"Every queue you see is in Redis. Every Redis key is auditable. Every recommendation
+has a chain ID stored in TimescaleDB — see the <code>:8505</code> transcripts tab. If you want
+to ask 'what evidence was on the card the night of the outage three months ago',
+the chain is there."</p>
+</blockquote>
+<h4 id="step-4-topology-as-code-3-min">Step 4 — Topology-as-code (~3 min)<a class="headerlink" href="#step-4-topology-as-code-3-min" title="Permanent link">&para;</a></h4>
+<p>Open <code>fabric.yaml</code>. Walk the structure: devices, vendor map, VNIs, RTs, peers.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"One YAML file is the source of truth for the topology. From it,
+<code>agents/shared/topology_generator.py</code> emits four things: a Containerlab YAML for
+the digital twin, a Neo4j seed Cypher for the KG, a NetBox import CSV for the
+intent layer, and the test fixtures the dispatcher and adapter tests run against.
+When you add a leaf, you edit one file and re-run the generators. The drift
+detector then compares NetBox intent — this file — against KG actual — synced
+live from your fabric. If your operator pushed a change that isn't in NetBox, the
+drift detector pages."</p>
+</blockquote>
+<h4 id="step-5-the-7-pass-deep-walk-5-min">Step 5 — The 7-pass deep walk (~5 min)<a class="headerlink" href="#step-5-the-7-pass-deep-walk-5-min" title="Permanent link">&para;</a></h4>
+<p>Walk each pass with the code path open. This is the deepest section — be technical.</p>
+<table>
+<thead>
+<tr>
+<th>Pass</th>
+<th>File / function</th>
+<th>What you say</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>agents/shared/confidence_scorer.py::ConfidenceScorer.score</code></td>
+<td>"Three-band gate. Below 0.55, skip simulation, go direct to human. 0.55-0.85, graph sim. Above 0.85, full containerlab. The bands are tunable per fault class."</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>agents/shared/validate_node.py::validate_fix_correctness</code></td>
+<td>"Per fault-type pre/post assertions. The LLM can lie about its own fix; this is the rule-based grader. Currently five EVPN rules, ten OSPF rules, expanding."</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>agents/shared/graph_simulator.py</code></td>
+<td>"Layer 1 DT. In-memory SPF, reachability, blast radius from the KG snapshot. Runs in milliseconds."</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>agents/shared/containerlab_manager.py::validate_evpn</code></td>
+<td>"Layer 2 DT. Renders containerlab YAML from <code>fabric.yaml</code>, brings up SR Linux + cEOS + FRR, applies the fix, runs the validation suite. ~30s wall clock."</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>agents/change_risk_officer/policies.py</code></td>
+<td>"Six policy classes; data in JSON. The verdict carries a <code>cited_policies</code> list — show me the law I broke. This is what your auditor reads."</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>agents/blast_radius_forecaster/agent.py</code></td>
+<td>"Translates fix to dollars. KG traversal: which VNIs are affected, which tenants hang off those VNIs, what's the SLA per tenant, what's the worst-case convergence window. The math is in code; the numbers are in your CMDB."</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>agents/post_change_verifier/agent.py::capture_baseline</code></td>
+<td>"Snapshots pre-change state so the change-executor can diff after apply. Verdicts: PASSED, REGRESSION_DETECTED, FIX_DID_NOT_TAKE, INDETERMINATE_PROBABLY_OK. The autonomous loop closes on this pass."</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step-6-the-scale-answer-5-min">Step 6 — The scale answer (~5 min)<a class="headerlink" href="#step-6-the-scale-answer-5-min" title="Permanent link">&para;</a></h4>
+<p>Every chief architect asks: how does this scale to my 16-leaf fabric with real NX-OS?</p>
+<p>Open <code>docs/DT_V3_PERSISTENT_SHADOW.md</code>. Walk §1, §2, §4.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"The current digital twin is Layer 2 — SR Linux as a high-fidelity NX-OS twin. It
+covers RFC-level behavior, but it misses the NX-OS-specific syntax footguns:
+auto-RT derivation, mgmt-vrf quirks, L3VNI bind-to-SVI ordering. V3 is the
+persistent shadow — vrnetlab-packaged real NX9K qcow2, always warm, snapshot-based
+per-incident lifecycle. Per-incident wall clock is 10 seconds; the 50-minute
+cold-boot cost is paid once per DT rebuild — weekly. For a 16-leaf fabric,
+per-incident validation cost is around 4 cents — see §4 table. V3 is scaffolded
+today; real vrnetlab integration is the next commit. The wiring point is
+<code>agents/shared/scope_policy.py</code> — a fault-type-to-twin-layer router. Layer 2 stays
+for the easy cases; Layer 3 fires for NX-OS-specific patterns. That's how this
+scales."</p>
+</blockquote>
+<h4 id="step-7-verifiability-audit-trail-3-min">Step 7 — Verifiability + audit trail (~3 min)<a class="headerlink" href="#step-7-verifiability-audit-trail-3-min" title="Permanent link">&para;</a></h4>
+<p>Open <code>:8505</code> transcripts. Find a recent chain. Walk it.</p>
+<p>What the user says:</p>
+<blockquote>
+<p>"Every reasoning chain is persisted to TimescaleDB. Every decision is keyed by a
+chain ID. The <code>pattern_id</code> we infer from the LLM diagnosis is checked against a
+closed set — see <code>agents/stability/workflow/analyze_node.py::KNOWN_PATTERN_IDS</code>.
+When the LLM picks <code>evpn_peer_admin_shut</code> we know which playbook fired, which
+commands ran, what the BRF said, what the CRO cited. Three months from now your
+SRE postmortem opens this tab, types the incident ID, and gets the full chain."</p>
+</blockquote>
+<h4 id="step-8-close-5-min-qa">Step 8 — Close (~5 min Q&amp;A)<a class="headerlink" href="#step-8-close-5-min-qa" title="Permanent link">&para;</a></h4>
+<p>What the user says:</p>
+<blockquote>
+<p>"Two asks. First, can we put ninety minutes on the calendar with your architecture
+team for a discovery? We come prepared with one named use case from your
+environment. Second, would you give us read-only access to your staging NetBox so
+our 60-day pilot starts at week three instead of week six? In return, you get a
+joint design document for the integration, no commitment, no obligation. The
+pilot scope and the pricing follow that call."</p>
+</blockquote>
+<h4 id="what-if-x-breaks-during-the-30-min-demo">What if X breaks during the 30-min demo<a class="headerlink" href="#what-if-x-breaks-during-the-30-min-demo" title="Permanent link">&para;</a></h4>
+<p><strong>(a) Dry-run timeout on Pass 4 (containerlab deploy &gt;60s).</strong>
+Recovery: switch to V3 talk track immediately. Say <em>"This is exactly why V3 exists.
+Pass 4 is on the cold-boot path today; the persistent shadow eliminates this latency.
+Let me show you the V3 architecture."</em> Open <code>docs/DT_V3_PERSISTENT_SHADOW.md §2</code>.
+The break becomes the segue.</p>
+<p><strong>(b) <code>verifiability-api</code> is crash-looping (known degraded — see WORKSHOP_STATUS.md §6).</strong>
+Recovery: skip the <code>:8505</code> walkthrough in Step 7. Show the TimescaleDB schema
+directly from a psql terminal instead: <code>\d agent_reasoning_chains</code>. The data is
+there; the rendering is broken. Talking point: <em>"The transcripts UI is the lookup
+view; the chain data is in TimescaleDB — production deployments wire this into
+Datadog or Grafana."</em></p>
+<p><strong>(c) An architect asks "how do you handle non-routing fault classes — multicast,
+QoS, SDN policy?" and the demo system has none of those.</strong>
+Recovery: open <code>agents/team_leader/workflow/triage_rules.py</code> and walk the 70 rules.
+Say <em>"Multicast and QoS aren't in scope today — the workshop fabric is EVPN-VXLAN
+unicast. Adding a new tier and a new dispatcher branch is the four-step recipe in
+<code>EVPN_NATIVE_ARCHITECTURE.md §4.1</code>. The architecture supports it; the data
+collectors and prompts are the work. We can scope this for the pilot."</em></p>
+<h4 id="what-not-to-say-in-the-30-min">What NOT to say in the 30-min<a class="headerlink" href="#what-not-to-say-in-the-30-min" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Do <strong>not</strong> claim V3 is in production. Say "V3 is scaffolded; vrnetlab integration is
+  the next commit". Reference <code>docs/DT_V3_PERSISTENT_SHADOW.md §8</code> and §3 commit map.</li>
+<li>Do <strong>not</strong> say "we replace your NOC". Say "we make the human approval step the
+  fastest defensible step, not the slowest". This is a job-keeper, not a job-killer.</li>
+<li>Do <strong>not</strong> call the KG "the source of truth". The KG is the <em>actual</em> — <code>fabric.yaml</code>
+  and NetBox are <em>intent</em>. The drift detector reconciles them. Architects will
+  notice if you conflate these.</li>
+<li>Do <strong>not</strong> promise sub-second LLM inference. Be honest: 16-22s/specialist call
+  today, AWQ quantization on the roadmap (see <code>WORKSHOP_STATUS.md §6</code> P2). The
+  network engineer doesn't care; the platform engineer does.</li>
+<li>Do <strong>not</strong> quote a price. Say "the pilot scope and pricing follow the discovery
+  call". Pricing in the deck is for the CFO conversation, not the architecture
+  conversation.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../glossary/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Glossary">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Glossary
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../workshop-status/" class="md-footer__link md-footer__link--next" aria-label="Next: Workshop status">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Workshop status
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Eduard Dulharu. All rights reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eduardd76" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

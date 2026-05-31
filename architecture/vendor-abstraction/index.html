@@ -1,0 +1,2657 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Risk-managed autonomous network remediation. Multi-vendor, compliance-aware, auditable.">
+      
+      
+        <meta name="author" content="Eduard Dulharu">
+      
+      
+        <link rel="canonical" href="https://eduardd76.github.io/dream_team_public/architecture/vendor-abstraction/">
+      
+      
+        <link rel="prev" href="../scalability-v3/">
+      
+      
+        <link rel="next" href="../cost-analysis/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Vendor abstraction - Agentic NetOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vendor-agnostic-topology-adaptable-netops-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic NetOps" class="md-header__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic NetOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vendor abstraction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pitch/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Pitch
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../onboarding/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Onboarding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic NetOps" class="md-nav__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agentic NetOps
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../pitch/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pitch
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pitch
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/one-pager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One-pager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/what-this-is/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What this is
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/roi-math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROI math
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/pilot-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    60-day pilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-layer architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/seven-pass-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7-pass validation pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/fault-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EVPN fault rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/kg-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KG schema (Neo4j)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/test-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalability-v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalability — V3 persistent shadow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor abstraction
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor abstraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-goals-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Goals &amp; decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-current-state-what-is-locked-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Current state — what is locked today
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-target-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Target architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-neutral-model-the-spine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Neutral Model (the spine)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Neutral Model (the spine)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#neutralstate-examples-derived-from-existing-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NeutralState (examples; derived from existing schemas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neutralevent-what-syslogtelemetry-normalizes-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NeutralEvent (what syslog/telemetry normalizes to)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neutralchange-vendor-neutral-remediation-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NeutralChange (vendor-neutral remediation intent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capability-taxonomy-two-distinct-concepts-keep-them-apart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capability taxonomy (two distinct concepts — keep them apart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-four-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. The four contracts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. The four contracts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-vendoradapter-mcp-serveradapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 VendorAdapter (mcp-server/adapters/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-domainpack-loads-existing-yaml-unchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 DomainPack (loads existing YAML unchanged)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-inventorysource-wraps-netbox_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 InventorySource (wraps netbox_client.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-neutral-model-5-the-shared-data-the-other-three-speak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Neutral Model — §5 (the shared data the other three speak).
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-capability-based-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Capability-based dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-multi-tenancy-customer-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Multi-tenancy (customer isolation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-digital-twin-generalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Digital twin generalization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-changes-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. CHANGES REQUIRED
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. CHANGES REQUIRED">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-new-files-the-four-thin-layers-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 New files (the four thin layers + adapters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-files-modified-wraprelocate-minimal-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Files modified (wrap/relocate — minimal diff)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-unchanged-reused-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Unchanged (reused as-is)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-migration-plan-each-phase-independently-shippable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Migration plan (each phase independently shippable)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-risks-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Risks &amp; mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-why-it-stays-maintainable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Why it stays maintainable
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cost-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cost analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trade-offs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../onboarding/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Onboarding
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Onboarding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/codebase-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codebase map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/local-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local dev
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy (EC2 + SSM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/demo-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/workshop-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshop status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-goals-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Goals &amp; decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-current-state-what-is-locked-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Current state — what is locked today
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-target-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Target architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-neutral-model-the-spine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Neutral Model (the spine)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Neutral Model (the spine)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#neutralstate-examples-derived-from-existing-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NeutralState (examples; derived from existing schemas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neutralevent-what-syslogtelemetry-normalizes-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NeutralEvent (what syslog/telemetry normalizes to)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neutralchange-vendor-neutral-remediation-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NeutralChange (vendor-neutral remediation intent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capability-taxonomy-two-distinct-concepts-keep-them-apart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capability taxonomy (two distinct concepts — keep them apart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-four-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. The four contracts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. The four contracts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-vendoradapter-mcp-serveradapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 VendorAdapter (mcp-server/adapters/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-domainpack-loads-existing-yaml-unchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 DomainPack (loads existing YAML unchanged)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-inventorysource-wraps-netbox_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 InventorySource (wraps netbox_client.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-neutral-model-5-the-shared-data-the-other-three-speak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Neutral Model — §5 (the shared data the other three speak).
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-capability-based-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Capability-based dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-multi-tenancy-customer-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Multi-tenancy (customer isolation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-digital-twin-generalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Digital twin generalization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-changes-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. CHANGES REQUIRED
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. CHANGES REQUIRED">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-new-files-the-four-thin-layers-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 New files (the four thin layers + adapters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-files-modified-wraprelocate-minimal-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Files modified (wrap/relocate — minimal diff)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-unchanged-reused-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Unchanged (reused as-is)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-migration-plan-each-phase-independently-shippable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Migration plan (each phase independently shippable)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-risks-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Risks &amp; mitigations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-why-it-stays-maintainable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Why it stays maintainable
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="vendor-agnostic-topology-adaptable-netops-architecture">Vendor-Agnostic, Topology-Adaptable NetOps Architecture<a class="headerlink" href="#vendor-agnostic-topology-adaptable-netops-architecture" title="Permanent link">&para;</a></h1>
+<p><strong>Project:</strong> agentic-netops-mvp → multi-vendor, multi-topology platform
+<strong>Status:</strong> DESIGN (not yet built) · synthesized from a 4-architect review
+<strong>Date:</strong> 2026-05-27
+<strong>Author:</strong> Architecture working session (Claude + code-architect agents)</p>
+<hr />
+<h2 id="1-executive-summary">1. Executive summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>The goal is to evolve the current <strong>single-vendor (Cisco IOS-XE), single-topology (3 fixed routers)</strong> demo into a <strong>vendor-agnostic, topology-adaptable platform</strong> that serves different customers — VXLAN EVPN fabrics, SD-WAN, mixed Cisco + Arista — from the same codebase. <strong>Vendor-agnosticism is the product moat.</strong></p>
+<p>The whole design reduces to one principle:</p>
+<blockquote>
+<p><strong>Push vendor-specificity to thin edges; keep a vendor-neutral core. Make "add a vendor" and "add a topology/technology" plugin registrations — never edits to the core.</strong></p>
+</blockquote>
+<p>Two findings make this tractable:</p>
+<ol>
+<li><strong>It is ~85–90% reuse.</strong> Almost none of the existing domain logic is vendor-specific — only its <em>edges</em> are. The 42 diagnostic trees, 72 scenarios, the specialist reasoning graph, the determinism/memory/guardrail machinery all become the <em>implementation behind</em> four thin new interfaces. Cisco-specificity lives in exactly <strong>three places</strong>: the syslog mnemonic table, the CLI parsers, and the fix-command strings.</li>
+<li><strong>The architecture is four plugin types around one neutral data model:</strong> <code>VendorAdapter</code>, <code>DomainPack</code>, <code>InventorySource</code>, and the <strong>Neutral Model</strong> that they all speak.</li>
+</ol>
+<hr />
+<h2 id="2-goals-decisions">2. Goals &amp; decisions<a class="headerlink" href="#2-goals-decisions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1</td>
+<td>Vendor-agnostic is the moat</td>
+<td>Differentiator; the diagnostic knowledge was never truly vendor-bound</td>
+</tr>
+<tr>
+<td>G2</td>
+<td><strong>Normalize at the MCP layer</strong> via structured APIs (Arista eAPI, NX-OS gNMI/OpenConfig)</td>
+<td>Normalize once per capability, not per show-command per vendor</td>
+</tr>
+<tr>
+<td>G3</td>
+<td><strong>Vendor-abstraction first</strong> (Arista on OSPF/BGP before any EVPN)</td>
+<td>De-risk by isolating one hard axis at a time</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>Capability-based dispatch — core never branches on a vendor string</td>
+<td>The structural guarantee that protects the moat</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>Maximize reuse, minimize change</td>
+<td>Wrap/relocate/load-as-is over rewrite</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>Topology + intent come from a per-customer source of truth (NetBox/Infrahub)</td>
+<td>"Different customer" = different tenant, not different code</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-current-state-what-is-locked-today">3. Current state — what is locked today<a class="headerlink" href="#3-current-state-what-is-locked-today" title="Permanent link">&para;</a></h2>
+<p>Three, and only three, surfaces are vendor/topology-bound:</p>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>File</th>
+<th>Lock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Device access</strong></td>
+<td><code>mcp-server/tools/real_device.py</code></td>
+<td>hardcodes scrapli <code>IOSXEDriver</code> + <code>device_type: cisco_iosxe</code></td>
+</tr>
+<tr>
+<td><strong>Syslog mnemonics</strong></td>
+<td><code>agents/team_leader/workflow/triage_rules.py</code> (42 rules) + <code>syslog-server/syslog_server.py</code></td>
+<td>Cisco-IOS mnemonic regexes; static <code>map_ip_to_device</code> IP→name dict</td>
+</tr>
+<tr>
+<td><strong>Fix commands</strong></td>
+<td>scenario YAML <code>fix_patterns[].commands</code>; agent prompts</td>
+<td>IOS-XE CLI strings</td>
+</tr>
+<tr>
+<td><strong>Topology seed</strong></td>
+<td><code>neo4j-kg/sync.py</code> <code>STATIC_DEVICES</code></td>
+<td>fixed 3-router list</td>
+</tr>
+</tbody>
+</table>
+<p>Everything else — the 42 diagnostic trees (which branch on <em>tool names</em>, not vendor strings), the scenario engine, the specialist Context→Recall→Analyze→Validate graph, the digital twin logic, NetBox client (already returns <code>platform</code>/<code>role</code>/<code>primary_ip4</code>), the §9.1 determinism cache, the episodic memory, the input guardrail — is <strong>already vendor-neutral or trivially neutralizable</strong>.</p>
+<hr />
+<h2 id="4-target-architecture">4. Target architecture<a class="headerlink" href="#4-target-architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> InventorySource(tenant)          ████████ NEUTRAL CORE ████████            VendorAdapter (per platform)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> (wraps netbox_client)      ┌──────────────────────────────────────┐    ┌──────────────────────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   devices / topology /     │  NEUTRAL MODEL (the spine):            │    │ CiscoIOSXEAdapter             │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   intent (VRF/VNI/SD-WAN)  │    NeutralState · NeutralEvent ·       │    │  (wraps 37 parsers+IOSXEDriver)│
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   + capability derivation ─┼──▶ NeutralChange · Capability taxonomy │◀──▶│ CiscoNXOSAdapter (gNMI)        │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   + tenant scoping         │    fault_class = extensible string     │    │ AristaEOSAdapter (pyeapi/JSON) │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                            │                                        │    │  collect()→NeutralState        │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a> NetBox / Infrahub ────────▶│   ┌────────── DOMAIN PACKS ──────────┐ │    │  render(NeutralChange)→cmds    │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a> (per-tenant source of      │   │ routing · vxlan-evpn · sd-wan ·  │ │    │  syslog_to_event()→NeutralEvent│
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  truth; Infrahub adds      │   │ security                         │ │    │  capabilities()                │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  branchable intent)        │   │ (your 42 trees + 72 YAMLs as-is) │ │    └──────────────────────────────┘
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                            │   └──────────────────────────────────┘ │      ▲ registry keyed on NetBox `platform`
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                            │   Dispatch on CAPABILITY + fault_class  │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                            │   (never on vendor)                     │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                            │   KG · Digital Twin · Memory · Cache:   │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                            │   tenant-scoped, capability-driven      │
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                            └──────────────────────────────────────┘
+</code></pre></div>
+<p><strong>A "different customer" = a different NetBox tenant + enabled domain packs. The core code does not change per customer.</strong></p>
+<hr />
+<h2 id="5-the-neutral-model-the-spine">5. The Neutral Model (the spine)<a class="headerlink" href="#5-the-neutral-model-the-spine" title="Permanent link">&para;</a></h2>
+<p>The canonical, vendor-neutral vocabulary that all plugins speak. <strong>Phasing:</strong> Phase A ships a thin <code>NeutralState{raw: dict}</code> wrapper (the existing 37 parsers already emit the right dicts → <em>zero behavior change</em>); typed per-capability schemas are introduced incrementally.</p>
+<h3 id="neutralstate-examples-derived-from-existing-schemas">NeutralState (examples; derived from existing schemas)<a class="headerlink" href="#neutralstate-examples-derived-from-existing-schemas" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NeutralInterface   ← InterfaceStatus     (rename status→oper_status; speed→speed_mbps:int; +vrf, +encapsulation)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>NeutralOSPFNeighbor← OSPFNeighbor         (+area_id, +process_id; dead_time str→seconds:int)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>NeutralBGPSession  ← bgp_parser dict      (per-AFI record incl. l2vpn-evpn; +route_distinguisher)
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>NeutralVXLANVTEP   ← evpn_parser dict     (evis[]{evi,vni,rd,rt_*,type2/3/5_count}; +local_vtep_ip)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>NeutralL2Route     ← (new)                (vni, mac, ip, next_hop, route_type, rd)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>NeutralRoute       ← RouteEntry           (+vrf; multi-next-hop list for ECMP; AD from adapter)
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>NeutralVRF, NeutralSDWANTunnel ← sdwan_parser dict
+</code></pre></div>
+Every schema carries <code>ext: dict = {}</code> — the <strong>only</strong> field a DomainPack may write. New entity types (EVPN, SD-WAN) are DomainPack-owned models; the core never imports them. Align field names to OpenConfig/YANG paths where natural.</p>
+<h3 id="neutralevent-what-syslogtelemetry-normalizes-to">NeutralEvent (what syslog/telemetry normalizes to)<a class="headerlink" href="#neutralevent-what-syslogtelemetry-normalizes-to" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>{ event_id, timestamp, device_id, severity, fault_class (str),
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  entity_type, entity_id, description, raw, vendor_mnemonic, source }
+</code></pre></div>
+Per-vendor mnemonics map <em>into</em> this inside the adapter. <code>fault_class</code> is an <strong>extensible string</strong> (e.g. <code>ospf_adjacency_change</code>, <code>evpn_type2_mac_inconsistency</code>) — not a closed enum — so a new domain adds fault classes without core changes.</p>
+<h3 id="neutralchange-vendor-neutral-remediation-intent">NeutralChange (vendor-neutral remediation intent)<a class="headerlink" href="#neutralchange-vendor-neutral-remediation-intent" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{ change_id, intent (e.g. NO_SHUTDOWN_INTERFACE / RESET_BGP_SESSION / SET_VXLAN_VNI),
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  device_id, entity_type, entity_id, parameters, dry_run, approval_id }
+</code></pre></div>
+Adapters render this to per-vendor CLI/NETCONF at execution time — the pack never emits CLI.</p>
+<h3 id="capability-taxonomy-two-distinct-concepts-keep-them-apart">Capability taxonomy (two distinct concepts — keep them apart)<a class="headerlink" href="#capability-taxonomy-two-distinct-concepts-keep-them-apart" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>DeviceCapability</strong> — dotted strings describing what a device <em>is/does</em>: <code>routing.bgp</code>, <code>overlay.vxlan-evpn</code>, <code>sdwan.tunnels</code>, <code>l2.vlan</code>, <code>security.acl</code>. Derived from NetBox; drives <strong>dispatch</strong>.</li>
+<li><strong>Collector / Query</strong> — what <code>adapter.collect()</code> <em>fetches</em>. The adapter advertises which collectors it supports.</li>
+</ul>
+<hr />
+<h2 id="6-the-four-contracts">6. The four contracts<a class="headerlink" href="#6-the-four-contracts" title="Permanent link">&para;</a></h2>
+<h3 id="61-vendoradapter-mcp-serveradapters">6.1 VendorAdapter  (<code>mcp-server/adapters/</code>)<a class="headerlink" href="#61-vendoradapter-mcp-serveradapters" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">VendorAdapter</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">/</span> <span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capability</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NeutralState</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">:</span> <span class="n">NeutralChange</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>      <span class="c1"># vendor CLI/NETCONF</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">syslog_to_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NeutralEvent</span> <span class="o">|</span> <span class="kc">None</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">frozenset</span><span class="p">[</span><span class="n">Capability</span><span class="p">]</span>
+</code></pre></div>
+Registry keyed on NetBox <code>platform.name</code>. <code>AdapterFactory.for_device(id)</code> is the single dispatch call. Mock mode → a single <code>MockAdapter</code> (preserves <code>mock_device.apply_config</code> intent simulation).</p>
+<h3 id="62-domainpack-loads-existing-yaml-unchanged">6.2 DomainPack  (loads existing YAML unchanged)<a class="headerlink" href="#62-domainpack-loads-existing-yaml-unchanged" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DomainPack</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">domain_id</span><span class="p">:</span> <span class="nb">str</span> <span class="p">;</span> <span class="n">fault_classes</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">required_capabilities</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">evidence_plan</span><span class="p">(</span><span class="n">fault</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">CapabilityQuery</span><span class="p">]</span>   <span class="c1"># ← replaces context_node tool calls</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">diagnostic_tree</span><span class="p">(</span><span class="n">fault</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiagTree</span>                      <span class="c1"># ← the existing YAML tree</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_prompt</span><span class="p">(</span><span class="n">fault</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>                  <span class="c1"># ← replaces _build_grounded_prompt</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">fix_templates</span><span class="p">(</span><span class="n">fault</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NeutralFixTemplate</span><span class="p">]</span>       <span class="c1"># NEUTRAL, no CLI</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">validate_fix_semantics</span><span class="p">(</span><span class="n">fault</span><span class="p">,</span> <span class="n">fix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FixCorrectness</span>
+</code></pre></div>
+A <code>YamlDomainPack</code> loader reads the existing trees/scenarios. A new domain = drop YAML + register; <strong>zero core code</strong>.</p>
+<h3 id="63-inventorysource-wraps-netbox_clientpy">6.3 InventorySource  (wraps <code>netbox_client.py</code>)<a class="headerlink" href="#63-inventorysource-wraps-netbox_clientpy" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">InventorySource</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">devices</span><span class="p">(</span><span class="n">tenant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DeviceRecord</span><span class="p">]</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">device</span><span class="p">(</span><span class="n">tenant</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DeviceRecord</span>     <span class="c1"># incl. derived capabilities</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">topology</span><span class="p">(</span><span class="n">tenant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TopologyGraph</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">intent</span><span class="p">(</span><span class="n">tenant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IntentView</span>           <span class="c1"># VRFs, VNIs, SD-WAN policies</span>
+</code></pre></div>
+Capabilities derived from <code>platform</code>/<code>role</code>/<code>device_type</code>/<code>custom_fields</code>. <strong>Infrahub</strong> is a drop-in alternative that adds branchable intent (propose a change on a branch, validate, merge) — same interface, different backend.</p>
+<h3 id="64-neutral-model-5-the-shared-data-the-other-three-speak">6.4 Neutral Model — §5 (the shared data the other three speak).<a class="headerlink" href="#64-neutral-model-5-the-shared-data-the-other-three-speak" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="7-capability-based-dispatch">7. Capability-based dispatch<a class="headerlink" href="#7-capability-based-dispatch" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>classify(NeutralEvent) -&gt; (domain, specialist)           # ~20-row table on fault_class, no vendor strings
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pack = registry.get(domain)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>missing = pack.required_capabilities - device.capabilities
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>if missing: degrade (narrower pack or investigate-only)
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>→ route to specialist queue with pack_id
+</code></pre></div>
+Specialists stay 4; the same Context→Recall→Analyze→Validate graph runs with a <code>DomainPack</code> injected at dispatch. Determinism, the §9.1 cache, the episodic recall, and the input guardrail are all <strong>preserved unchanged</strong> (the cache key gains <code>pack_id</code> + <code>tenant</code>).</p>
+<hr />
+<h2 id="8-multi-tenancy-customer-isolation">8. Multi-tenancy (customer isolation)<a class="headerlink" href="#8-multi-tenancy-customer-isolation" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Store</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Neo4j KG</td>
+<td>add <code>tenant</code> to node-key + every Cypher <code>WHERE d.tenant = $tenant</code></td>
+</tr>
+<tr>
+<td>TimescaleDB <code>incident_outcomes</code></td>
+<td>add <code>tenant_id</code> column + index; recall query filters on it</td>
+</tr>
+<tr>
+<td>§9.1 answer cache</td>
+<td>prepend <code>tenant_id</code> to the hash basis</td>
+</tr>
+<tr>
+<td>Redis queues</td>
+<td><code>tenant_id</code> in payload (phase 1) → per-tenant queues (phase 2)</td>
+</tr>
+<tr>
+<td>New customer onboarding = create a NetBox tenant, assign devices (platform/role/custom_fields), set <code>config_context</code> intent, add the tenant slug to <code>NETOPS_TENANTS</code>. <strong>No Python changes.</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-digital-twin-generalization">9. Digital twin generalization<a class="headerlink" href="#9-digital-twin-generalization" title="Permanent link">&para;</a></h2>
+<p>A <code>TwinBackend</code> protocol (<code>deploy/apply_change/collect_evidence/teardown</code>):
+- <strong>FRR backend</strong> — <code>ios_to_frr</code> becomes <code>neutral_to_frr</code> (input = NeutralFixTemplate). Neutral/OSPF + FRR-EVPN.
+- <strong>cEOS backend</strong> — Arista-accurate, containerlab-native.
+- <strong>SD-WAN</strong> — no faithful emulator → <code>requires_live_validation: true</code>; falls back to Layer-1 graph-sim + KG checks (the existing "unverified" path), surfaced honestly on the approval card.</p>
+<hr />
+<h2 id="10-changes-required">10. CHANGES REQUIRED<a class="headerlink" href="#10-changes-required" title="Permanent link">&para;</a></h2>
+<h3 id="101-new-files-the-four-thin-layers-adapters">10.1 New files (the four thin layers + adapters)<a class="headerlink" href="#101-new-files-the-four-thin-layers-adapters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mcp-server/adapters/base.py</code></td>
+<td><code>VendorAdapter</code> ABC + <code>Capability</code></td>
+</tr>
+<tr>
+<td><code>mcp-server/adapters/registry.py</code>, <code>factory.py</code></td>
+<td>platform→adapter registry; <code>AdapterFactory.for_device()</code></td>
+</tr>
+<tr>
+<td><code>mcp-server/adapters/cisco_iosxe.py</code></td>
+<td>wraps <code>RealDevice</code>/<code>IOSXEDriver</code> + the 37 parse statics</td>
+</tr>
+<tr>
+<td><code>mcp-server/adapters/mock_adapter.py</code></td>
+<td>wraps <code>MockDevice</code></td>
+</tr>
+<tr>
+<td><code>mcp-server/adapters/arista_eos.py</code></td>
+<td>pyeapi/eAPI (JSON-native), ~120 lines</td>
+</tr>
+<tr>
+<td><code>core/neutral/model.py</code></td>
+<td>NeutralState / NeutralEvent / NeutralChange / Capability</td>
+</tr>
+<tr>
+<td><code>core/triage/neutral_classifier.py</code></td>
+<td>fault_class → (domain, specialist) routing table</td>
+</tr>
+<tr>
+<td><code>core/packs/registry.py</code>, <code>yaml_pack.py</code></td>
+<td>DomainPack loader for existing YAML</td>
+</tr>
+<tr>
+<td><code>mcp-server/tools/inventory_source.py</code></td>
+<td><code>InventorySource</code> facade over netbox_client</td>
+</tr>
+<tr>
+<td><code>mcp-server/tools/capability_engine.py</code></td>
+<td>derive capabilities from NetBox fields</td>
+</tr>
+<tr>
+<td><code>twin/backends/{base,frr,ceos}.py</code></td>
+<td><code>TwinBackend</code> protocol + backends</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102-files-modified-wraprelocate-minimal-diff">10.2 Files modified (wrap/relocate — minimal diff)<a class="headerlink" href="#102-files-modified-wraprelocate-minimal-diff" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mcp-server/tools/*_parser.py</code> (×37)</td>
+<td>reroute the <code>USE_REAL_DEVICES</code> branch through <code>AdapterFactory</code></td>
+<td>~8 lines each</td>
+</tr>
+<tr>
+<td><code>mcp-server/main.py</code></td>
+<td>move syslog-mnemonic mapping into the Cisco adapter; scope <code>config_writer</code> idempotency key by vendor</td>
+<td>small</td>
+</tr>
+<tr>
+<td><code>agents/team_leader/workflow/triage_rules.py</code></td>
+<td><strong>relocate verbatim</strong> into <code>adapters/cisco_iosxe</code> syslog parser; emit <code>fault_class</code></td>
+<td>cut-paste</td>
+</tr>
+<tr>
+<td><code>agents/*/workflow/context_node.py</code></td>
+<td>replace explicit MCP calls with <code>pack.evidence_plan()</code></td>
+<td>~4h each</td>
+</tr>
+<tr>
+<td><code>agents/*/workflow/analyze_node.py</code></td>
+<td><code>_build_grounded_prompt</code> → <code>pack.analyze_prompt()</code> (keep guardrail + cache)</td>
+<td>~3h each</td>
+</tr>
+<tr>
+<td><code>agents/shared/validate_node.py</code></td>
+<td><code>validate_fix_correctness</code> → <code>pack.validate_fix_semantics()</code></td>
+<td>~3h</td>
+</tr>
+<tr>
+<td><code>agents/shared/graph_simulator.py</code></td>
+<td>OSPF-only topology → capability topology; <code>_apply_change</code> → NeutralChange.action</td>
+<td>~3h</td>
+</tr>
+<tr>
+<td><code>agents/shared/ios_to_frr.py</code>, <code>containerlab_manager.py</code></td>
+<td>refactor into FRR <code>TwinBackend</code> (logic intact)</td>
+<td>~5h</td>
+</tr>
+<tr>
+<td><code>agents/shared/llm_client.py</code></td>
+<td>cache-key basis += <code>tenant_id</code> + <code>pack_id</code></td>
+<td>small</td>
+</tr>
+<tr>
+<td><code>agents/shared/recall_node.py</code>, <code>outcome-tracker/tracker.py</code></td>
+<td>add <code>tenant_id</code> to query + <code>incident_outcomes</code></td>
+<td>small</td>
+</tr>
+<tr>
+<td><code>syslog-server/syslog_server.py</code></td>
+<td><code>map_ip_to_device</code> → NetBox-backed Redis lookup; inject <code>tenant_id</code></td>
+<td>small</td>
+</tr>
+<tr>
+<td><code>neo4j-kg/sync.py</code></td>
+<td><code>STATIC_DEVICES</code> → <code>seed_from_netbox(tenant)</code>; tenant on node-key</td>
+<td>medium</td>
+</tr>
+<tr>
+<td><code>docker-compose.yml</code></td>
+<td>add <code>arista</code>/adapter deps (pyeapi), <code>NETOPS_TENANTS</code> env</td>
+<td>small</td>
+</tr>
+</tbody>
+</table>
+<h3 id="103-unchanged-reused-as-is">10.3 Unchanged (reused as-is)<a class="headerlink" href="#103-unchanged-reused-as-is" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The <strong>42 diagnostic trees</strong> + <strong>72 scenario YAMLs</strong> (load via <code>YamlDomainPack</code>).</li>
+<li>The specialist <strong>Context→Recall→Analyze→Validate</strong> graph (DomainPack injected).</li>
+<li>The §9.1 determinism machinery, episodic memory, input guardrail, denylist, HITL.</li>
+<li>NetBox itself; the MCP HTTP route surface (agents call the same URLs).</li>
+</ul>
+<hr />
+<h2 id="11-migration-plan-each-phase-independently-shippable">11. Migration plan (each phase independently shippable)<a class="headerlink" href="#11-migration-plan-each-phase-independently-shippable" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Scope</th>
+<th>Gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>Neutral seam + adapter framework; wrap Cisco; <strong>zero new behavior</strong></td>
+<td>Regression vs the gpt-4o-mini determinism baseline (same answers)</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td><code>AristaEOSAdapter</code> on OSPF/BGP + small dual-vendor lab</td>
+<td><strong>Moat proof:</strong> same incident, two vendors, one neutral diagnosis, vendor-rendered fix</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>NetBox-driven topology + multi-tenancy (kill hardcodes)</td>
+<td>New tenant onboards with zero code</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>VXLAN EVPN DomainPack on both vendors</td>
+<td>Dual-vendor EVPN lab incidents resolved</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>SD-WAN DomainPack</td>
+<td>Proves domain-plugin generality on a different topology</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-risks-mitigations">12. Risks &amp; mitigations<a class="headerlink" href="#12-risks-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cache-key change (tenant+pack_id) <strong>re-bases determinism</strong></td>
+<td>Re-record the gpt-4o-mini baseline after Phase A (plan for it)</td>
+</tr>
+<tr>
+<td>Vendor leaks back into the core → moat cracks</td>
+<td><code>ext</code>-bag discipline: packs declare <code>ext</code> keys in a manifest; CI rejects undeclared reads + any vendor-string branch in core</td>
+</tr>
+<tr>
+<td>KG tenant-bleed</td>
+<td>Audit every <code>MATCH (d:Device)</code> for a tenant filter</td>
+</tr>
+<tr>
+<td>Capability cold-start</td>
+<td>Until inventory populated, dispatch on fault_class alone (today's behavior)</td>
+</tr>
+<tr>
+<td>NetBox/Infrahub unavailable</td>
+<td>Redis last-known-good IP map; adapter platform fallback to <code>cisco_iosxe</code></td>
+</tr>
+<tr>
+<td>EVPN/SD-WAN twin coverage gaps</td>
+<td><code>requires_live_validation</code> degrades to Layer-1 + KG checks; card states validation depth honestly</td>
+</tr>
+<tr>
+<td><code>incident_outcomes</code> live ALTER</td>
+<td><code>ADD COLUMN ... NULL</code> is lock-free; recall handles NULL-tenant history then backfill</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-why-it-stays-maintainable">13. Why it stays maintainable<a class="headerlink" href="#13-why-it-stays-maintainable" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Thin vendor edges, neutral core</strong> — vendor-ness confined to adapters.</li>
+<li><strong>Closed core, open extension</strong> — new tech adds an <code>ext</code> namespace + a domain pack; never a core edit.</li>
+<li><strong>YAML domain packs</strong> — CCIE-grade knowledge editable without code.</li>
+<li><strong>One registry, one dispatch table, one factory</strong> — adding a vendor = "write an adapter + a syslog map"; adding a topology/technology = "drop in YAML + a capability." Neither touches the core.</li>
+</ul>
+<hr />
+<p><em>End of document.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../scalability-v3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scalability — V3 persistent shadow">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Scalability — V3 persistent shadow
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../cost-analysis/" class="md-footer__link md-footer__link--next" aria-label="Next: Cost analysis">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Cost analysis
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Eduard Dulharu. All rights reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eduardd76" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

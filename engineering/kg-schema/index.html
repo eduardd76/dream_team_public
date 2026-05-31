@@ -1,0 +1,2295 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Risk-managed autonomous network remediation. Multi-vendor, compliance-aware, auditable.">
+      
+      
+        <meta name="author" content="Eduard Dulharu">
+      
+      
+        <link rel="canonical" href="https://eduardd76.github.io/dream_team_public/engineering/kg-schema/">
+      
+      
+        <link rel="prev" href="../fault-rules/">
+      
+      
+        <link rel="next" href="../test-coverage/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>KG schema (Neo4j) - Agentic NetOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#digital-twin-knowledge-graph-how-they-work-and-how-far-they-scale" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic NetOps" class="md-header__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic NetOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              KG schema (Neo4j)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pitch/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Pitch
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../onboarding/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Onboarding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic NetOps" class="md-nav__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agentic NetOps
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../pitch/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pitch
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pitch
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/one-pager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One-pager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/what-this-is/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What this is
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/roi-math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROI math
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/pilot-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    60-day pilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-layer architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seven-pass-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7-pass validation pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fault-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EVPN fault rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KG schema (Neo4j)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KG schema (Neo4j)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-30-second-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 30-second version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-a-how-the-digital-twin-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A — How the Digital Twin works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part A — How the Digital Twin works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-in-simple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea, in simple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-gate-has-4-steps-and-picks-which-simulator-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The gate has 4 steps (and picks which simulator to use)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-1-the-quick-sketch-graph_simulatorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 1 — the quick sketch (graph_simulator.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-2-the-realistic-miniature-containerlab_managerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 2 — the realistic miniature (containerlab_manager.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-most-important-dt-caveat-of-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The most important DT caveat of all
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-b-how-the-knowledge-graph-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B — How the Knowledge Graph works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B — How the Knowledge Graph works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-in-simple-terms_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea, in simple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-stored-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's stored (the schema)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-kg-gets-filled-neo4j-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the KG gets filled (neo4j-sync)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-kg-is-read-kg_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the KG is read (kg_client.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freshness-model-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Freshness model (important)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-c-how-scalable-is-this-really" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part C — How scalable is this, really?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part C — How scalable is this, really?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ranked-bottlenecks-first-to-break-last" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranked bottlenecks (first to break → last)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-two-of-these-matter-for-june-9-specifically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why two of these matter for June 9 specifically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-production-scale-would-take-grouped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "production-scale" would take (grouped)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bottom-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bottom line
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../test-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../architecture/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/scalability-v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalability — V3 persistent shadow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/vendor-abstraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor abstraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/cost-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cost analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/trade-offs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../onboarding/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Onboarding
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Onboarding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/codebase-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codebase map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/local-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local dev
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy (EC2 + SSM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/demo-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/workshop-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshop status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-30-second-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 30-second version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-a-how-the-digital-twin-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A — How the Digital Twin works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part A — How the Digital Twin works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-in-simple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea, in simple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-gate-has-4-steps-and-picks-which-simulator-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The gate has 4 steps (and picks which simulator to use)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-1-the-quick-sketch-graph_simulatorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 1 — the quick sketch (graph_simulator.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-2-the-realistic-miniature-containerlab_managerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 2 — the realistic miniature (containerlab_manager.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-most-important-dt-caveat-of-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The most important DT caveat of all
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-b-how-the-knowledge-graph-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B — How the Knowledge Graph works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B — How the Knowledge Graph works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-in-simple-terms_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea, in simple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-stored-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's stored (the schema)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-kg-gets-filled-neo4j-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the KG gets filled (neo4j-sync)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-kg-is-read-kg_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the KG is read (kg_client.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freshness-model-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Freshness model (important)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-c-how-scalable-is-this-really" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part C — How scalable is this, really?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part C — How scalable is this, really?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ranked-bottlenecks-first-to-break-last" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranked bottlenecks (first to break → last)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-two-of-these-matter-for-june-9-specifically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why two of these matter for June 9 specifically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-production-scale-would-take-grouped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "production-scale" would take (grouped)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bottom-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bottom line
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="digital-twin-knowledge-graph-how-they-work-and-how-far-they-scale">Digital Twin &amp; Knowledge Graph — How They Work, and How Far They Scale<a class="headerlink" href="#digital-twin-knowledge-graph-how-they-work-and-how-far-they-scale" title="Permanent link">&para;</a></h1>
+<p><strong>Audience:</strong> plain-language explanation, but precise. Every mechanism box cites the exact code.
+<strong>Date:</strong> 2026-05-25 · <strong>Method:</strong> three agents (two code-explorers + one reviewer) mapped the code in parallel; every load-bearing claim was then verified directly against the source.</p>
+<hr />
+<h2 id="the-30-second-version">The 30-second version<a class="headerlink" href="#the-30-second-version" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The Knowledge Graph (KG)</strong> is a <em>live diagram of the network</em> kept in a graph database (Neo4j). Routers, ports, OSPF neighbors and routes are stored as dots, and the connections between them as lines you can walk. It's the system's "memory of what the network looks like."</li>
+<li><strong>The Digital Twin (DT)</strong> is a <em>what-if sandbox</em>. Before a human approves a fix, the system tries that fix on a model of the network to see whether it would break anything. There are <strong>two models</strong>: a fast rough sketch (graph math) and a slow realistic one (actual mini-routers in containers).</li>
+<li><strong>Scale today:</strong> this is an excellent <strong>demo-scale prototype</strong> — built for ~3 routers, one incident at a time, one user. It is not yet a production system, and two of its limits can be hit <em>at the workshop</em> without adding a single device.</li>
+</ul>
+<hr />
+<h2 id="part-a-how-the-digital-twin-works">Part A — How the Digital Twin works<a class="headerlink" href="#part-a-how-the-digital-twin-works" title="Permanent link">&para;</a></h2>
+<h3 id="the-idea-in-simple-terms">The idea, in simple terms<a class="headerlink" href="#the-idea-in-simple-terms" title="Permanent link">&para;</a></h3>
+<p>When a specialist agent proposes a fix (e.g. "run <code>no shutdown</code> on Gi0/0"), we don't want to blindly trust the AI. So the DT acts like a <strong>flight simulator for network changes</strong>: it rehearses the change on a copy of the network and reports whether things stay healthy. Only then does the change reach a human for approval.</p>
+<h3 id="the-gate-has-4-steps-and-picks-which-simulator-to-use">The gate has 4 steps (and picks which simulator to use)<a class="headerlink" href="#the-gate-has-4-steps-and-picks-which-simulator-to-use" title="Permanent link">&para;</a></h3>
+<p>Every fix goes through <code>ValidateNode</code>, which runs up to four passes. A <strong>confidence score</strong> decides how much rehearsal is warranted:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What happens</th>
+<th>In plain terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Confidence score</td>
+<td>Compute a 0–1 "gate score" from risk signals</td>
+<td>"How worried should I be about this fix?"</td>
+</tr>
+<tr>
+<td>2. Fault-correctness</td>
+<td>Regex check: does the fix match the fault?</td>
+<td>"Does this fix even address the problem?"</td>
+</tr>
+<tr>
+<td>3. <strong>DT Layer 1</strong> (graph sim)</td>
+<td>networkx connectivity check</td>
+<td>The <em>quick sketch</em> model</td>
+</tr>
+<tr>
+<td>4. <strong>DT Layer 2</strong> (containerlab)</td>
+<td>Real FRR routers in containers</td>
+<td>The <em>realistic miniature</em> model</td>
+</tr>
+</tbody>
+</table>
+<p>The gate score routes the fix: <strong>below 0.55</strong> → skip simulation, send straight to a human; <strong>0.55–0.85</strong> → run the quick Layer-1 sketch; <strong>0.85 and above</strong> → run the heavy, realistic Layer-2 twin. Truly dangerous commands (<code>write erase</code>, <code>reload</code>, <code>format</code>, <code>erase startup</code>) are <strong>blocked instantly</strong> before any of this.</p>
+<blockquote>
+<p><strong>Precise:</strong> <code>validate_node.py:157</code> orchestrates the passes. Gate score = <code>clamp(1.0 − objective·0.6 + llm_confidence·0.4)</code> with weights change_type_risk 0.30 / blast_radius 0.25 / historical_accuracy 0.25 / context_clarity 0.10 / symptom_match 0.10 (<code>confidence_scorer.py:99</code>). Bands + <code>BLOCKED_PATTERNS</code> at <code>confidence_scorer.py:166</code> &amp; <code>:251</code>.</p>
+</blockquote>
+<h3 id="layer-1-the-quick-sketch-graph_simulatorpy">Layer 1 — the quick sketch (graph_simulator.py)<a class="headerlink" href="#layer-1-the-quick-sketch-graph_simulatorpy" title="Permanent link">&para;</a></h3>
+<ol>
+<li>It pulls the list of healthy OSPF neighbor links from the KG and <strong>draws a connect-the-dots graph</strong>: each router is a dot, each <em>FULL</em> OSPF adjacency is a line (<code>_build_graph</code>).</li>
+<li>It <strong>applies the proposed change to the sketch</strong>: if the command is <code>shutdown</code> or <code>no router ospf</code>, it <em>erases the whole router</em> from the graph. (<code>no shutdown</code> and everything else leave the sketch unchanged.)</li>
+<li>It asks one question: <strong>"is the network still all in one piece?"</strong> (<code>nx.is_connected</code>), and computes shortest paths between every pair of routers.</li>
+<li>Separately, it gives the command a <strong>risk score</strong> from a pattern table, and declares: <code>passed = still-connected AND risk &lt; 0.75</code>.</li>
+</ol>
+<blockquote>
+<p><strong>Precise:</strong> <code>graph_simulator.py:93</code> (<code>simulate</code>), graph build <code>:220</code>, change applied <code>:249</code>, connectivity <code>:207</code>. Risk table: <code>write erase/reload</code>=0.95, <code>no router ospf/bgp</code>=0.85, <code>no ip route</code>=0.75, <code>shutdown</code>=0.70, <code>no shutdown</code>=0.20, default 0.40. Pass formula <code>:126</code>.</p>
+</blockquote>
+<p><strong>Honest limitations of Layer 1:</strong>
+- It's <strong>coarse</strong>: a <code>shutdown</code> on one port erases the <em>entire router</em> from the model, even if only one link is affected — a deliberate worst-case, but not realistic.
+- If the KG has <strong>no neighbor data</strong> (true for ~30–60s after boot, or always in some mock setups), it returns <em>"reachability OK"</em> <strong>vacuously</strong> — it passes without actually simulating (<code>graph_simulator.py:193</code>). This is the single most important caveat for a demo.</p>
+<h3 id="layer-2-the-realistic-miniature-containerlab_managerpy">Layer 2 — the realistic miniature (containerlab_manager.py)<a class="headerlink" href="#layer-2-the-realistic-miniature-containerlab_managerpy" title="Permanent link">&para;</a></h3>
+<p>Only runs for high-confidence fixes (≥0.85). It builds a <strong>real tiny network</strong>: three FRR router containers wired in a triangle, then:
+1. Translates the IOS fix to FRR syntax (<code>ios_to_frr.translate()</code> — the unit suite we already built).
+2. <code>containerlab deploy</code> the 3-router topology → <strong>wait 12s</strong> for OSPF to converge.
+3. Apply the fix to the affected router via <code>docker exec … vtysh</code> → <strong>wait 6s</strong> to re-converge.
+4. Run three real checks: OSPF neighbors are up, an OSPF route exists, and pings succeed across the triangle.
+5. Tear the whole thing down.</p>
+<blockquote>
+<p><strong>Precise:</strong> <code>containerlab_manager.py:123</code> (<code>validate</code>), waits <code>_CONVERGENCE_WAIT=12</code> / <code>_RECONVERGENCE_WAIT=6</code> (<code>:69</code>), 3 containers <code>frrouting/frr:10.1.1</code> (<code>containerlab/topology.yml</code>), checks at <code>:213/:219/:225</code>, teardown in <code>finally :254</code>.</p>
+</blockquote>
+<p><strong>Honest limitations of Layer 2:</strong>
+- It takes <strong>~25–35 seconds per run</strong> and uses real Docker. On the demo host (no <code>containerlab</code> binary installed) it <strong>self-skips</strong> entirely — so in the mock demo, Layer 2 never actually runs.
+- The topology is <strong>hard-coded to exactly 3 routers</strong>; it can't model the real fix's surroundings.</p>
+<h3 id="the-most-important-dt-caveat-of-all">The most important DT caveat of all<a class="headerlink" href="#the-most-important-dt-caveat-of-all" title="Permanent link">&para;</a></h3>
+<p><strong>The DT is advisory — it does not block approval.</strong> The result is shown on the approval card, but the Approve button is never disabled based on it (<code>ui/app.py:869</code>). The architecture <em>looks</em> like a safety gate; the UI does not <em>enforce</em> one.</p>
+<hr />
+<h2 id="part-b-how-the-knowledge-graph-works">Part B — How the Knowledge Graph works<a class="headerlink" href="#part-b-how-the-knowledge-graph-works" title="Permanent link">&para;</a></h2>
+<h3 id="the-idea-in-simple-terms_1">The idea, in simple terms<a class="headerlink" href="#the-idea-in-simple-terms_1" title="Permanent link">&para;</a></h3>
+<p>The KG is a <strong>graph database (Neo4j)</strong> holding a structured picture of the network. Think of it as a wiki where every <strong>router, port, neighbor, and route is a page</strong>, and the <strong>links between pages are real network relationships</strong> you can traverse. Agents read it to get "context" about a device before reasoning, and the DT reads it to know the topology.</p>
+<h3 id="whats-stored-the-schema">What's stored (the schema)<a class="headerlink" href="#whats-stored-the-schema" title="Permanent link">&para;</a></h3>
+<p>Four kinds of "dots" (nodes) and three kinds of "lines" (relationships):</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Key (how duplicates are prevented)</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Device</code></td>
+<td><code>device_id</code> (unique)</td>
+<td>hostname, mgmt_ip, ospf_router_id, config_hash, …</td>
+</tr>
+<tr>
+<td><code>Interface</code></td>
+<td><code>(device_id, name)</code></td>
+<td>ip, admin/oper status, errors, mtu, …</td>
+</tr>
+<tr>
+<td><code>OSPFNeighbor</code></td>
+<td><code>(local_device, neighbor_id)</code></td>
+<td>state (FULL/…), area, cost, timers</td>
+</tr>
+<tr>
+<td><code>Route</code></td>
+<td><code>(device_id, prefix, protocol)</code></td>
+<td>next_hop, metric, admin_distance</td>
+</tr>
+</tbody>
+</table>
+<p>Lines: <code>(Device)-[:HAS_INTERFACE]-&gt;(Interface)</code>, <code>(Device)-[:OSPF_NEIGHBOR]-&gt;(OSPFNeighbor)</code>, <code>(Device)-[:HAS_ROUTE]-&gt;(Route)</code>.</p>
+<blockquote>
+<p><strong>Precise:</strong> schema/constraints <code>neo4j-kg/sync.py:117</code> and <code>kg_client.py:229</code>. Indexed: <code>Device.device_id</code> (unique), <code>Device.mgmt_ip</code>. <strong><code>Route.prefix</code> is NOT indexed</strong> (matters for scale).</p>
+</blockquote>
+<h3 id="how-the-kg-gets-filled-neo4j-sync">How the KG gets filled (neo4j-sync)<a class="headerlink" href="#how-the-kg-gets-filled-neo4j-sync" title="Permanent link">&para;</a></h3>
+<p>There is exactly <strong>one writer</strong>: the <code>neo4j-sync</code> container.
+- <strong>On first boot:</strong> if the graph is empty, it <strong>seeds a hard-coded 3-router triangle</strong> (router-1/2/3 = 1.1.1.1 / 2.2.2.2 / 3.3.3.3, each with interfaces, two FULL OSPF neighbors, three routes).
+- <strong>In mock mode (<code>USE_REAL_DEVICES=false</code>, the demo default):</strong> after seeding, it does <strong>nothing but print a heartbeat every 30s</strong> — the picture never changes.
+- <strong>In real mode:</strong> every 30s it loops the device list <strong>serially</strong>, calling two MCP tools per device (<code>ospf_parser</code>, <code>interface_parser</code>) and updating those nodes. <strong>Routes are never refreshed</strong> after seeding, and the device list is a <strong>hard-coded array</strong> (<code>STATIC_DEVICES</code>) — adding a router means editing code.</p>
+<blockquote>
+<p><strong>Precise:</strong> seed <code>sync.py:32</code> &amp; <code>:305</code>, mock heartbeat <code>:329</code>, real-mode serial poll <code>:323</code>, MERGE upserts <code>:139/:157/:173/:193</code>.</p>
+</blockquote>
+<h3 id="how-the-kg-is-read-kg_clientpy">How the KG is read (kg_client.py)<a class="headerlink" href="#how-the-kg-is-read-kg_clientpy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>get_device_context(device_id)</code></strong> — the main one. Grabs a device plus its interfaces, neighbors, and routes in one query. This is what each specialist calls to "learn about the device."</li>
+<li><strong><code>get_all_ospf_neighbors()</code></strong> — feeds the DT's Layer-1 sketch.</li>
+<li><strong><code>get_blast_radius(prefix)</code></strong> — <em>despite the name, this is a flat one-hop count</em>: "how many devices have a route to this exact prefix?" It does <strong>not</strong> walk the topology or propagate impact. (<code>kg_client.py:113</code>)</li>
+<li><strong><code>get_topology()</code> / <code>get_topology_summary()</code></strong> — <strong>dead code</strong>: defined but never called anywhere.</li>
+</ul>
+<h3 id="freshness-model-important">Freshness model (important)<a class="headerlink" href="#freshness-model-important" title="Permanent link">&para;</a></h3>
+<p>The KG is a <strong>derived, eventually-consistent copy</strong> of device state — not the source of truth (the devices/MCP are). In real mode it lags by up to ~30s; in mock mode it's a frozen snapshot. Every read <strong>fails soft</strong>: if Neo4j is down or empty, the reader gets a safe default (e.g. blast radius → <code>{affected_devices:1}</code>) instead of an error. That's why the system stays up — but also why missing data is silent.</p>
+<blockquote>
+<p><strong>Note:</strong> each specialist's context step opens its <strong>own</strong> short-lived <code>KGClient</code> and never closes it (<code>*/workflow/context_node.py</code>), leaking driver connections — fine at demo scale, a leak at volume.</p>
+</blockquote>
+<hr />
+<h2 id="part-c-how-scalable-is-this-really">Part C — How scalable is this, really?<a class="headerlink" href="#part-c-how-scalable-is-this-really" title="Permanent link">&para;</a></h2>
+<p><strong>Honest verdict:</strong> a <strong>demo-scale prototype</strong>. It is coherent and impressive for <strong>3 devices, one incident at a time, one user</strong>. Every dimension below has a hard ceiling, and two of them are reachable <em>at the workshop</em> with no growth at all.</p>
+<h3 id="ranked-bottlenecks-first-to-break-last">Ranked bottlenecks (first to break → last)<a class="headerlink" href="#ranked-bottlenecks-first-to-break-last" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>What breaks</th>
+<th>Bites at</th>
+<th>Fix effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Containerlab twin corrupts itself if two run at once.</strong> One shared <code>topology.yml</code> + config dir, <strong>no lock</strong>. Two simultaneous Layer-2 validations race deploy-vs-teardown.</td>
+<td><strong>2 concurrent incidents</strong></td>
+<td>Architectural</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Team-leader handles one incident at a time</strong> + drops repeats. Single <code>brpop</code> loop; a slow LLM call (up to 120s, or 60s cold-start) stalls intake; a 60s per-device dedup window sends repeats to the dead-letter queue.</td>
+<td><strong>~3 incidents/min burst</strong></td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>KG sync is strictly serial.</strong> Polls each real device one-by-one every 30s; with real SSH (~2s/device) the cycle exceeds 30s and falls behind.</td>
+<td><strong>~7 real devices</strong></td>
+<td>One-liner (<code>asyncio.gather</code>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>KG queries lack guards.</strong> <code>get_topology</code> pulls the whole graph (no LIMIT); <code>Route.prefix</code> is unindexed → full scan per blast-radius lookup.</td>
+<td><strong>~500 devices</strong></td>
+<td>Moderate (add index + LIMIT)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Specialists are serial + block the event loop.</strong> One message at a time; the <strong>synchronous</strong> OpenAI SDK is called inside async code, freezing that agent during each call.</td>
+<td><strong>2 concurrent/specialist</strong></td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Layer-1 sketch recomputes all-pairs shortest paths</strong> every validation, in the event loop.</td>
+<td><strong>~100 devices</strong> (CPU stall)</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Can't run replicas.</strong> Redis dedup keys, shared containerlab files, and a hard-coded device dict are all singletons — a second copy of any agent collides.</td>
+<td><strong>first replica</strong></td>
+<td>Architectural</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Cold-start freeze.</strong> A cold HF endpoint makes the agent sleep up to 60s inline, consuming no work meanwhile.</td>
+<td><strong>first cold deploy</strong></td>
+<td>Moderate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-two-of-these-matter-for-june-9-specifically">Why two of these matter for June 9 specifically<a class="headerlink" href="#why-two-of-these-matter-for-june-9-specifically" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>#1 (containerlab):</strong> if a demo scenario triggers two incidents that both escalate to the realistic twin, they corrupt each other. <em>Mitigation today:</em> the demo host has no containerlab installed, so Layer-2 self-skips — the risk is latent, not active, in the mock demo.</li>
+<li><strong>#2 (team-leader):</strong> firing <strong>3+ syslogs from one router within 60s</strong> means only the first is processed and the rest are dropped. This is observable at workshop scale. <em>This is actually the intended "cascade suppression" feature</em> — worth narrating as a feature, but know its sharp edge.</li>
+</ul>
+<h3 id="what-production-scale-would-take-grouped">What "production-scale" would take (grouped)<a class="headerlink" href="#what-production-scale-would-take-grouped" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Config / quick:</strong> parallelize the sync poller (<code>asyncio.gather</code>); add a <code>Route.prefix</code> index; warm LLM endpoints at startup.</li>
+<li><strong>Moderate:</strong> make agents process concurrently and use the <strong>async</strong> OpenAI client; bound/limit KG queries; replace the O(N²) reachability with targeted <code>has_path</code>.</li>
+<li><strong>Architectural:</strong> per-validation containerlab namespaces (or an asyncio lock) so the twin can run safely/concurrently; a distributed lock for dedup; externalize the device list to the KG so replicas can scale out.</li>
+</ul>
+<hr />
+<h2 id="bottom-line">Bottom line<a class="headerlink" href="#bottom-line" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>KG = the network's memory</strong> (a Neo4j picture of devices/links/routes), filled by one poller, read by agents and the DT, eventually-consistent, fails soft.</li>
+<li><strong>DT = a pre-approval rehearsal</strong> with a fast graph sketch and a slow real-container twin, gated by a confidence score — but <strong>advisory only</strong>, and <strong>largely inert in the mock demo</strong> (Layer-2 skipped, Layer-1 often passes vacuously without KG topology).</li>
+<li><strong>Scale = demo-grade.</strong> Beautiful for a small, sequential, single-user demo; the realistic twin and the single-consumer orchestrator are the first things to fall over, and both can be touched at workshop scale. The fixes are known and mostly moderate; only true concurrency and replica scale-out are architectural.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../fault-rules/" class="md-footer__link md-footer__link--prev" aria-label="Previous: EVPN fault rules">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                EVPN fault rules
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../test-coverage/" class="md-footer__link md-footer__link--next" aria-label="Next: Test coverage">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Test coverage
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Eduard Dulharu. All rights reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eduardd76" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

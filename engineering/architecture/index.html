@@ -1,0 +1,2743 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Risk-managed autonomous network remediation. Multi-vendor, compliance-aware, auditable.">
+      
+      
+        <meta name="author" content="Eduard Dulharu">
+      
+      
+        <link rel="canonical" href="https://eduardd76.github.io/dream_team_public/engineering/architecture/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../seven-pass-pipeline/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>5-layer architecture - Agentic NetOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agentic-netops-comprehensive-architecture-analysis-assessment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic NetOps" class="md-header__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic NetOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5-layer architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pitch/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Pitch
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../onboarding/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Onboarding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic NetOps" class="md-nav__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agentic NetOps
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../pitch/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pitch
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pitch
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/one-pager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One-pager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/what-this-is/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What this is
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/roi-math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROI math
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/pilot-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    60-day pilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-layer architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-layer architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-system-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. System-level architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-subsystem-catalog-every-component-with-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Subsystem catalog (every component, with status)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-end-to-end-data-flow-incident-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. End-to-end data flow (incident lifecycle)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-subsystem-level-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Subsystem-level diagrams
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-infrastructure-the-ssot-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Infrastructure &amp; the SSOT question
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Infrastructure &amp; the SSOT question">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-there-an-ssot-for-infra-no-there-is-no-infrastructure-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is there an SSOT for infra? — No. There is no infrastructure-as-code.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-ssot-separate-from-infra-fragile-now-reconciled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code SSOT (separate from infra) — fragile, now reconciled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Assessment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-vendor-agnostic-architecture-the-moat-design-decisions-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Vendor-agnostic architecture (the moat) — design, decisions &amp; rationale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Vendor-agnostic architecture (the moat) — design, decisions &amp; rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-why-vendor-agnostic-at-all-the-strategic-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Why vendor-agnostic at all — the strategic rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-target-shape-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Target shape (recap)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-decision-records-the-logic-behind-each-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Decision records — the logic behind each choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-why-this-preserves-the-determinism-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Why this preserves the determinism guarantee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-build-status-branch-vendor-abstraction-phase-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Build status (branch vendor-abstraction-phase-a)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-whats-not-done-the-live-validation-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 What's NOT done — the live-validation gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-how-this-updates-the-7-risk-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7 How this updates the §7 risk picture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seven-pass-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7-pass validation pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fault-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EVPN fault rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kg-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KG schema (Neo4j)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../test-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../architecture/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/scalability-v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalability — V3 persistent shadow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/vendor-abstraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor abstraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/cost-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cost analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/trade-offs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../onboarding/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Onboarding
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Onboarding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/codebase-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codebase map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/local-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local dev
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy (EC2 + SSM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/demo-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/workshop-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshop status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-system-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. System-level architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-subsystem-catalog-every-component-with-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Subsystem catalog (every component, with status)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-end-to-end-data-flow-incident-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. End-to-end data flow (incident lifecycle)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-subsystem-level-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Subsystem-level diagrams
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-infrastructure-the-ssot-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Infrastructure &amp; the SSOT question
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Infrastructure &amp; the SSOT question">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-there-an-ssot-for-infra-no-there-is-no-infrastructure-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is there an SSOT for infra? — No. There is no infrastructure-as-code.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-ssot-separate-from-infra-fragile-now-reconciled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code SSOT (separate from infra) — fragile, now reconciled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Assessment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-vendor-agnostic-architecture-the-moat-design-decisions-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Vendor-agnostic architecture (the moat) — design, decisions &amp; rationale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Vendor-agnostic architecture (the moat) — design, decisions &amp; rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-why-vendor-agnostic-at-all-the-strategic-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Why vendor-agnostic at all — the strategic rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-target-shape-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Target shape (recap)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-decision-records-the-logic-behind-each-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Decision records — the logic behind each choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-why-this-preserves-the-determinism-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Why this preserves the determinism guarantee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-build-status-branch-vendor-abstraction-phase-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Build status (branch vendor-abstraction-phase-a)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-whats-not-done-the-live-validation-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 What's NOT done — the live-validation gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-how-this-updates-the-7-risk-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7 How this updates the §7 risk picture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="agentic-netops-comprehensive-architecture-analysis-assessment">Agentic NetOps — Comprehensive Architecture Analysis &amp; Assessment<a class="headerlink" href="#agentic-netops-comprehensive-architecture-analysis-assessment" title="Permanent link">&para;</a></h1>
+<p><strong>Scope:</strong> every system and subsystem of <code>agentic-netops-mvp</code> as it exists now (branch <code>main</code>, the reconciled superset), the end-to-end data flow, and an explicit assessment — including the infrastructure source-of-truth question. <strong>§9 (added 2026-05-27)</strong> documents the in-progress <strong>vendor-agnostic evolution</strong> (branch <code>vendor-abstraction-phase-a</code>) and the logic/rationale behind every design decision.
+<strong>Date:</strong> 2026-05-25 (core §1–8) · <strong>§9 addendum:</strong> 2026-05-27 · <strong>Workshop:</strong> AutoCon5, 2026-06-09.
+<strong>Method:</strong> §1–8 synthesized from direct code mapping + two <code>code-explorer</code> agents (subsystem internals + data-flow/infra), every load-bearing claim verified against source — <strong>reality, not intent</strong>. §9 documents code on a feature branch with its true status stated explicitly (flags default-OFF, not on <code>main</code>, not deployed, <strong>shape-proven but not yet live-proven</strong>).</p>
+<hr />
+<h2 id="1-executive-summary">1. Executive summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>A 5-layer human-in-the-loop (HITL) agentic system that turns a router <strong>syslog</strong> into a <strong>human-approved, executed fix</strong>, with reasoning recorded for audit. The pipeline is: <strong>deterministic triage → specialist diagnosis (LLM + tools + digital-twin validation) → human approval → guarded execution → audit</strong>.</p>
+<ul>
+<li><strong>What's strong:</strong> the <em>control plane</em> is deterministic by construction (regex triage + answer cache → same incident yields the same routing and the same exact answer, proven 21/21 bit-exact), nothing touches a device without human approval, and the device-tool surface is broad (37 protocol parsers, 42 diagnostic trees).</li>
+<li><strong>What's weak:</strong> <strong>no infrastructure-as-code</strong> (everything hand-managed), the running box isn't a tracked git checkout, the fine-tuned specialist models underperform gpt-4o-mini (so the demo runs on fallback), and the single-consumer orchestrator caps throughput (~25 incidents / 15 min).</li>
+<li><strong>What's evolving (the moat):</strong> a <strong>vendor-agnostic</strong> collection seam (Phase A) wraps the Cisco path behind a neutral adapter interface with <strong>zero behavior change</strong> (flag-gated, default OFF, byte-for-byte parity-proven); an <strong>Arista EOS adapter</strong> (Phase B) collects OSPF/BGP/interfaces via eAPI into the <em>same</em> neutral shape; and a <strong>DomainPack</strong> layer (Phase D) makes the system topology-aware — a first <strong>EVPN</strong> pack adds cross-vendor EVPN diagnosis (collection, capability-based dispatch, and syslog triage) on both vendors. All on branch <code>vendor-abstraction-phase-a</code> — <strong>not merged to <code>main</code> or deployed</strong>, <strong>shape/logic-proven offline but not yet validated against live hardware</strong>. Full design + the rationale for every decision in <strong>§9</strong>.</li>
+</ul>
+<hr />
+<h2 id="2-system-level-architecture">2. System-level architecture<a class="headerlink" href="#2-system-level-architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>                                   ┌─────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  Cisco devices ──syslog/udp:5140─▶│ L0 syslog-server  (parse → incident_queue)  │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  (mock | real CSR via EVE-NG)     └───────────────────────┬─────────────────────┘
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        ▲                                                  │ Redis LPUSH
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        │ SSH (real mode, via EVE-NG jump host)            ▼
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        │                          ┌──────────────────────────────────────────────┐
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        │                          │ L2 TEAM-LEADER  (netops-team-leader :8002)    │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        │                          │  deterministic triage (regex, no LLM)         │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        │   ┌──ACP REST :8002──────│  per-device 3s buffer + 60s dedup + cascade   │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        │   │                      │  A2A delegate ▼            ▲ A2A response      │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        │   │                      └──────────┬─────────────────┴──────────────────┘
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        │   │                                 │ Redis a2a_&lt;spec&gt;_inbox
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        │   │   ┌─────────────────────────────▼──────────────────────────────────┐
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        │   │   │ L3 SPECIALISTS (A2A): stability · troubleshooting · security ·  │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        │   │   │                       virtual-architect                          │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        │   │   │  per agent: Context → Analyze(LLM+cache) → Validate(gate+DT)     │
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        │   │   │   ├── KG read (Bolt 7687) ── Neo4j Knowledge Graph               │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        │   │   │   ├── Digital Twin (in-proc): graph_sim + containerlab + ios2frr │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        │   │   │   ├── Scenarios/diagnostic-tree engine + MCP evidence gatherer   │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        │   │   │   ├── CVE scanner (security)                                     │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        │   │   │   └── verifiability (HTTP → verifiability-api → TimescaleDB)     │
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        │   │   └───────────────────────────┬──────────────────────────────────────┘
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        │   │                               │ MCP / HTTP :8001→8000
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        │   │   ┌───────────────────────────▼──────────────────────────────────┐
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        │   │   │ L4 MCP SERVER (netops-mcp)  37 protocol parser tools +         │
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        │   │   │   config_writer + device_intent + idempotency cache           │
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        │   │   └───────────────────────────┬──────────────────────────────────┘
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        │   │                               │ SSH/NETCONF (real) | mock_device (mock)
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        │   │                               ▼     L5 DEVICES
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        │   ▼
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>   ┌────────────────┐  approval_queue   ┌──────────────┐  approval_responses  ┌──────────────────┐
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>   │ L1 UI :8501    │◀──────────────────│  team-leader │─────────────────────▶│ change-executor  │
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>   │ Streamlit      │  (human approve)  │  ACP server  │   (approved fixes)   │ guarded apply →  │
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>   │ approval cards │──────ACP─────────▶│              │                      │ MCP config_writer│
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>   └────────────────┘                   └──────────────┘                      └──────────────────┘
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>  SIDE PLANES:  Redis (bus/queues/cache/locks) · Neo4j+neo4j-sync (KG) · drift-detector
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>                verifiability-api + TimescaleDB (audit, OUT-OF-COMPOSE) · NetBox (intent SSOT, external)
+</code></pre></div>
+<p><strong>Protocol map (fixed):</strong> UI↔Team-Leader = <strong>ACP</strong> (REST/HTTP :8002); Team-Leader↔Specialists = <strong>A2A</strong> (Redis inbox queues); Specialists↔MCP = <strong>MCP</strong> (HTTP :8001/8000); MCP↔Devices = <strong>SSH/NETCONF</strong> (real) or in-process mock.</p>
+<hr />
+<h2 id="3-subsystem-catalog-every-component-with-status">3. Subsystem catalog (every component, with status)<a class="headerlink" href="#3-subsystem-catalog-every-component-with-status" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Subsystem</th>
+<th>Key location</th>
+<th>Purpose</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Syslog ingest</strong></td>
+<td><code>syslog-server/syslog_server.py</code> (:5140/udp)</td>
+<td>Parse device syslog (RFC3164/5424 + EVE-NG relay), detect incident type, <code>lpush incident_queue</code></td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Team-Leader / orchestrator</strong></td>
+<td><code>agents/team_leader/agent_adk.py</code> + <code>http_server.py</code> (:8002)</td>
+<td>Deterministic regex triage (<code>triage_rules.classify_syslog</code>), per-device 3s buffer + 60s dedup + cascade/victim suppression, A2A delegation, approval routing (ACP)</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Stability specialist</strong></td>
+<td><code>agents/stability/</code> (Qwen2.5-7B / fallback)</td>
+<td>OSPF/BGP/EIGRP/memory/CPU faults</td>
+<td>LIVE (on fallback)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Troubleshooting specialist</strong></td>
+<td><code>agents/troubleshooting/</code> (CodeLlama-7B / fallback)</td>
+<td>Interface/connectivity/BGP-flap/L2/protocol faults</td>
+<td>LIVE (on fallback)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Security specialist</strong></td>
+<td><code>agents/security/</code> (Mistral-7B / fallback)</td>
+<td>Auth/ACL/SSH/privilege/port-security + CVE</td>
+<td>LIVE (on fallback)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Virtual architect</strong></td>
+<td><code>agents/virtual_architect/</code> (Phi-4 / fallback)</td>
+<td>Read-only ReAct design advisor (UI chat, not syslog path)</td>
+<td>LIVE (on fallback)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Specialist workflow</strong></td>
+<td><code>agents/&lt;x&gt;/workflow/{context,analyze,validate}_node.py</code></td>
+<td>Context (MCP evidence) → Analyze (LLM + answer cache) → Validate (confidence gate + Digital Twin)</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>MCP server</strong></td>
+<td><code>mcp-server/main.py</code> (:8001→8000)</td>
+<td>37 protocol parser tools + <code>config_writer</code> (mutating) + <code>device_intent</code> (NetBox) + idempotency cache; mock↔real device dispatch</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Device parsers</strong></td>
+<td><code>mcp-server/tools/*_parser.py</code> (37)</td>
+<td>Per-protocol <code>show</code>-output → structured data (ospf, bgp, isis, evpn, sr, sdwan, macsec, qos, cve, …)</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Devices</strong></td>
+<td><code>mock_device.py</code> | <code>real_device.py</code>+<code>ssh_tunnel.py</code></td>
+<td>Simulated CSR state machine | 3× real CSR1000v in EVE-NG via SSH jump host</td>
+<td>LIVE (mock default)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Knowledge Graph</strong></td>
+<td>Neo4j <code>:7474/7687</code> + <code>neo4j-kg/sync.py</code> + <code>kg_client.py</code></td>
+<td>Derived topology graph (Device/Interface/OSPFNeighbor/Route); sole writer = neo4j-sync (30s poll); read by specialists + DT</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Digital Twin</strong></td>
+<td><code>agents/shared/{graph_simulator,containerlab_manager,ios_to_frr,validate_node}.py</code></td>
+<td>Pre-approval "what-if": L1 networkx reachability + L2 FRR-container replay; advisory gate</td>
+<td>LIVE (L1; L2 self-skips off-box)</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Scenarios / diagnostic-tree engine</strong></td>
+<td><code>agents/scenarios/</code> (42 trees + ~70 scenarios, <code>loader/catalogue.py</code>, <code>schema/</code>)</td>
+<td>Machine-readable failure-pattern KB; drives evidence-gathering 3-stage MCP tool walks + fix templating</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>MCP evidence gatherer</strong></td>
+<td><code>agents/shared/mcp_evidence_gatherer.py</code></td>
+<td>Resolves the matched scenario's diagnostic tree → deterministic stage-1/2/3 MCP tool calls → structured evidence for the LLM</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>CVE scanning</strong></td>
+<td><code>mcp-server/tools/cve_scanner.py</code> + <code>agents/shared/cve_scanner_client.py</code></td>
+<td>Hybrid-search CVE lookup (vexpertai scanner API, mock fallback); feeds <code>state["cve_scan"]</code> into the security prompt</td>
+<td>LIVE (security path)</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Change-executor</strong></td>
+<td><code>change-executor/executor.py</code></td>
+<td>HITL execution bridge: consumes <code>approval_responses</code> → guarded apply via MCP <code>config_writer</code>; idempotency + anti-storm + maintenance-window gates; writes <code>applied_history</code></td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Determinism / answer cache (§9.1)</strong></td>
+<td><code>agents/shared/llm_client.py</code></td>
+<td><code>DETERMINISM_STRICT=1</code> → temp0 + seed + Redis <code>answer:{incident_sig}</code>; same INC → same exact answer</td>
+<td>LIVE (enabled on box)</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>Verifiability / observability</strong></td>
+<td><code>agents/shared/verifiable_client.py</code> → <code>verifiability-api</code> → TimescaleDB</td>
+<td>Records reasoning chains (observation→data→hypothesis→analysis→decision) per incident; best-effort/non-blocking</td>
+<td>LIVE (out-of-compose)</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>Drift detector</strong></td>
+<td><code>drift-detector/</code></td>
+<td>NetBox intent vs Neo4j actual → <code>(:Drift)</code> nodes (60s)</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>LLM client</strong></td>
+<td><code>agents/shared/llm_client.py</code></td>
+<td>Multi-provider (HF dedicated → local vLLM → OpenAI fallback), per-agent endpoints/models, the determinism wrapper</td>
+<td>LIVE</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>Message bus / stores</strong></td>
+<td>Redis <code>:6379</code></td>
+<td>A2A inboxes, approval/exec queues, dedup/storm locks, idempotency + answer caches</td>
+<td>LIVE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-end-to-end-data-flow-incident-lifecycle">4. End-to-end data flow (incident lifecycle)<a class="headerlink" href="#4-end-to-end-data-flow-incident-lifecycle" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a> device syslog
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    │ UDP :5140
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ▼
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> syslog-server ──lpush──▶ incident_queue
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                              │ brpop
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                              ▼
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> team-leader: noise/recovery filter ─▶ syslog_buffer:{dev} (3s) ─▶ _process_device_buffer
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>     │  pick min-priority · dedup incident_active:{dev} (60s) · cascade victim-suppress (→ dead_letter_queue)
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>     │  classify_syslog() [deterministic regex]   (LLM fallback only if no rule matches)
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>     ▼ A2A TASK_DELEGATION (lpush)
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a> a2a_&lt;specialist&gt;_specialist_inbox
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>     │ brpop
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>     ▼
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a> SPECIALIST workflow:
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>   ContextNode ── MCP HTTP ──▶ mcp-server tools (scenario diagnostic-tree walk; +CVE for security)
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>   AnalyzeNode ── answer cache GET answer:{sig} ─ hit→return ─ miss→LLM(temp0,seed)→SET answer:{sig}
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>   ValidateNode ── confidence gate → DigitalTwin (graph_sim L1 / containerlab L2) → blast radius
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>   (reasoning steps streamed → verifiability-api → TimescaleDB)
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>     │ A2A TASK_RESPONSE (lpush)
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>     ▼
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a> a2a_team_leader_inbox ──▶ team-leader assembles approval card ──lpush──▶ approval_queue
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>     │                                                                      │ read
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>     ▼                                                                      ▼
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a> (HITL) UI :8501 renders card ── operator Approve/Reject ──ACP POST :8002──▶ team-leader
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>     │ lpush approval_responses                                            (removes from approval_queue)
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>     ▼ brpop
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a> change-executor: preflight gates (idempotency applied:{id} 24h · anti-storm storm:{dev} · maint-window)
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>     │ MCP HTTP → config_writer (dry_run | real)
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>     ▼ SSH (real mode) → device
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a> applied_history (Redis, cap 500) ──▶ UI &quot;applied&quot; badge
+</code></pre></div>
+<p><strong>Authoritative Redis key map</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Producer → Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>incident_queue</code></td>
+<td>list</td>
+<td>syslog-server → team-leader</td>
+</tr>
+<tr>
+<td><code>syslog_buffer:{dev}</code> / <code>incident_active:{dev}</code></td>
+<td>list / str(60s)</td>
+<td>team-leader (buffer + dedup lock)</td>
+</tr>
+<tr>
+<td><code>dead_letter_queue</code></td>
+<td>list</td>
+<td>team-leader (suppressed victims)</td>
+</tr>
+<tr>
+<td><code>a2a_{stability,troubleshooting,security,virtual_architect}_specialist_inbox</code></td>
+<td>list</td>
+<td>team-leader → specialist</td>
+</tr>
+<tr>
+<td><code>a2a_team_leader_inbox</code></td>
+<td>list</td>
+<td>specialist → team-leader</td>
+</tr>
+<tr>
+<td><code>approval_queue</code></td>
+<td>list</td>
+<td>team-leader → UI</td>
+</tr>
+<tr>
+<td><code>approval_responses</code></td>
+<td>list</td>
+<td>team-leader ACP → change-executor</td>
+</tr>
+<tr>
+<td><code>applied:{change_id}</code> / <code>storm:{dev}</code></td>
+<td>str(24h) / str(30s)</td>
+<td>change-executor gates</td>
+</tr>
+<tr>
+<td><code>applied_history</code></td>
+<td>list (cap 500)</td>
+<td>change-executor → UI</td>
+</tr>
+<tr>
+<td><code>answer:{incident_sig}</code></td>
+<td>str</td>
+<td>llm_client answer cache (determinism)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-subsystem-level-diagrams">5. Subsystem-level diagrams<a class="headerlink" href="#5-subsystem-level-diagrams" title="Permanent link">&para;</a></h2>
+<p><strong>Digital Twin (in-process inside each specialist's ValidateNode — 4-pass gate)</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>proposed fix ─▶ [1] ConfidenceScorer ──gate band──▶ &lt;0.55 human · 0.55–0.85 L1 · ≥0.85 L2
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>             ─▶ [2] fault-correctness regex (does the fix match the fault?)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>             ─▶ [3] graph_simulator (networkx): build graph from KG OSPF neighbors →
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                    apply change (shutdown/no-router removes node) → nx.is_connected? + risk score
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>             ─▶ [4] containerlab_manager: ios_to_frr.translate() → deploy 3 FRR containers →
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                    apply via vtysh → 12s converge → check neighbors/routes/ping → teardown
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   NOTE: advisory only (UI does not block Approve on it); L2 self-skips when containerlab absent.
+</code></pre></div></p>
+<p><strong>Knowledge Graph (derived, eventually-consistent)</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>MCP device state ──poll 30s──▶ neo4j-sync (ONLY writer) ──MERGE──▶ Neo4j
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   nodes: Device · Interface · OSPFNeighbor · Route     rels: HAS_INTERFACE · OSPF_NEIGHBOR · HAS_ROUTE
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>   readers (Bolt 7687, kg_client.py): specialists (get_device_context) · graph_simulator
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                      (get_all_ospf_neighbors, get_blast_radius) · drift-detector
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>   mock mode: seeded 3-router triangle once, then static (heartbeat only).
+</code></pre></div></p>
+<p><strong>Scenarios / diagnostic-tree engine</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>42 _diagnostic_trees/*.yaml + ~70 scenario YAMLs ──validated by──▶ schema/scenario_schema.py (Pydantic)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   loader/catalogue.py (singleton): syslog regex table + alias index + tree index
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>   matched pattern_id ─▶ mcp_evidence_gatherer ─▶ tree: stage1 baseline tools → stage2 branch rules
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        (sandboxed `when` exprs via simpleeval) → stage3 NetBox intent cross-check → structured evidence
+</code></pre></div></p>
+<p><strong>Verifiability / audit plane (best-effort, non-blocking)</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>each specialist ──HTTP──▶ verifiability-api :8000 ──▶ TimescaleDB (ccie_verifiability)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   /reasoning/start → /step (observation,data_collection,hypothesis,analysis,decision) → /finalize
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>   tables: agent_reasoning_chains · reasoning_steps · data_provenance · audit_events
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>   failure = silent no-op (never fails the primary path). UI :8505 shows transcripts.
+</code></pre></div></p>
+<hr />
+<h2 id="6-infrastructure-the-ssot-question">6. Infrastructure &amp; the SSOT question<a class="headerlink" href="#6-infrastructure-the-ssot-question" title="Permanent link">&para;</a></h2>
+<h3 id="is-there-an-ssot-for-infra-no-there-is-no-infrastructure-as-code">Is there an SSOT for infra? — <strong>No. There is no infrastructure-as-code.</strong><a class="headerlink" href="#is-there-an-ssot-for-infra-no-there-is-no-infrastructure-as-code" title="Permanent link">&para;</a></h3>
+<p>A full search found <strong>zero</strong> Terraform/<code>*.tf</code>, CloudFormation, CDK, Ansible, Pulumi, or Serverless files. The only declarative artifact is <code>docker-compose.yml</code> — and that covers the <strong>application layer only</strong> (no EC2, networking, IAM, or the GPU fleet), and it <strong>drifts</strong> (TimescaleDB, verifiability-api, NetBox are referenced but not defined in it). The "infra" is therefore <strong>hand-managed</strong>.</p>
+<p><strong>Compute inventory (manually provisioned):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>Role</th>
+<th>Managed via</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AI_Dream_Team</code> (i-0117…ce60, eu-central-1, <APP_HOST_IP>)</td>
+<td>the whole Docker stack</td>
+<td><strong>AWS SSM only</strong> (SSH keys rotated/stale); tarball/rsync deploy, <strong>not a git checkout</strong></td>
+</tr>
+<tr>
+<td>4× GPU instances (g5.xlarge: GPU-LLM-Server / GPU-Stability / GPU-Specialists / GPU-Troubleshooting)</td>
+<td>self-hosted fine-tune vLLM endpoints (10.42.20.x)</td>
+<td>manual; nightly EventBridge stop/start; serve <code>/model</code> (name-mismatch → 404→fallback)</td>
+</tr>
+<tr>
+<td><code>eveng-prod</code> (<JUMP_HOST_IP>)</td>
+<td>EVE-NG with 3× CSR1000v + the DT runner (:8007)</td>
+<td>manual; SSH jump host</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Out-of-compose, manually-run:</strong> TimescaleDB (<code>netops-timescale</code>), <code>verifiability-api</code> (:8000), the <code>:8505</code> transcripts UI, NetBox. A clean <code>docker compose up</code> does <strong>not</strong> reproduce these.</p>
+<p><strong>Management reality:</strong> EC2s created by hand (console/CLI); day-to-day ops by <code>aws ssm send-command</code>; app deploys via <code>deploy.sh</code> (assumes the host exists); a <code>netops-boot-reconcile</code> systemd unit + nightly EventBridge schedule keep the stack alive across the 22:00/08:00 cost cycle. <strong>No state file, no drift protection, no reproducible rebuild.</strong></p>
+<h3 id="code-ssot-separate-from-infra-fragile-now-reconciled">Code SSOT (separate from infra) — fragile, now reconciled<a class="headerlink" href="#code-ssot-separate-from-infra-fragile-now-reconciled" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Git</strong> <code>eduardd76/dream_team_original@main</code> is the code SSOT (this session merged the box-superset + team-leader P3 + answer cache into it).</li>
+<li>The <strong>running box is not a git checkout</strong> (tarball deploy) — it was bidirectionally diverged from git and was reconciled by hand this session. Future code changes still need an SSM file-push, not <code>git pull</code>.</li>
+</ul>
+<hr />
+<h2 id="7-assessment">7. Assessment<a class="headerlink" href="#7-assessment" title="Permanent link">&para;</a></h2>
+<p><strong>Strengths</strong>
+- <strong>Deterministic control plane.</strong> Triage is pure ordered-regex (bit-exact); with the §9.1 answer cache, the same incident yields the same exact answer — <strong>proven 21/21 bit-identical</strong> across routing, root-cause, fix, and confidence.
+- <strong>Safety-first.</strong> Nothing reaches a device without human approval; <code>change-executor</code> adds idempotency, anti-storm, and maintenance-window gates; destructive commands are hard-blocked pre-human.
+- <strong>Breadth.</strong> 37 protocol parsers, 42 diagnostic trees, CVE enrichment, a 2-layer digital twin, a knowledge graph, and a full audit plane — a genuinely rich NetOps surface.
+- <strong>Graceful degradation.</strong> Every heavy dependency (vLLM, containerlab, Timescale, KG) fails soft.</p>
+<p><strong>Risks / gaps (ranked)</strong>
+1. <strong>No infra SSOT</strong> — the environment can't be reproducibly rebuilt; recovery is manual. <em>Highest long-term risk.</em>
+2. <strong>Box ≠ git</strong> — the demo host is a tarball deploy, drift-prone; reconciliation is manual.
+3. <strong>Fine-tuned models underperform gpt-4o-mini</strong> (security worst: composite 0.49, hallucination 0.28) → demo runs on <strong>fallback</strong>; retrain in progress.
+4. <strong>Single-consumer throughput ceiling</strong> — team-leader blocks per-incident; ~25 incidents / 15 min regardless of cache. Bites at concurrency, not device count.
+5. <strong>Digital Twin is advisory + degrades silently</strong> — looks like a safety gate but the UI doesn't enforce it; L1 passes vacuously without KG topology, L2 self-skips off-box.
+6. <strong>Graceful degradation hides missing capability</strong> — green doesn't prove the twin/audit actually ran.</p>
+<p><strong>Demo-readiness (2026-06-09):</strong> the deterministic pipeline + HITL + audit are solid and the demo runs reliably on gpt-4o-mini fallback. The honest talking points are the deterministic routing/answers (now provable) and the breadth; the things to <em>not</em> over-claim are the fine-tune superiority and the DT enforcement.</p>
+<hr />
+<h2 id="8-recommendations">8. Recommendations<a class="headerlink" href="#8-recommendations" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>P0 (long-term):</strong> introduce an infra SSOT — even a minimal Terraform/Ansible that captures the EC2s, the GPU fleet, security groups, EventBridge, and the out-of-compose containers — so the environment is reproducible.</li>
+<li><strong>P1:</strong> make the box a tracked git checkout (preserving <code>.env</code>/keys/volumes) so deploys are <code>git pull</code>; fold TimescaleDB + verifiability-api into compose.</li>
+<li><strong>P1:</strong> fix the vLLM <code>--served-model-name</code> (or point specialists straight at gpt-4o-mini) to drop the 404→fallback hop.</li>
+<li><strong>P2:</strong> decouple team-leader incident consumption from processing (async tasks) to lift the throughput ceiling.</li>
+<li><strong>P2:</strong> decide whether the Digital Twin should <em>enforce</em> (gate Approve on <code>dt_passed</code>) or stay advisory — and pre-seed the KG so L1 actually simulates.</li>
+<li><strong>Ongoing:</strong> retrain the specialists (separate session); re-run <code>determinism_baseline.py</code> against the committed gpt-4o-mini reference for a like-for-like comparison.</li>
+<li><strong>Vendor-agnostic merge gate (P1):</strong> keep <code>vendor-abstraction-phase-a</code> off <code>main</code> until the Arista live-validation checklist (<code>VENDOR_LAB_BRINGUP_RUNBOOK.md</code> §4) passes against a real device; merge is then a clean fast-forward. Rationale in §9.3 (D10).</li>
+</ul>
+<hr />
+<h2 id="9-vendor-agnostic-architecture-the-moat-design-decisions-rationale">9. Vendor-agnostic architecture (the moat) — design, decisions &amp; rationale<a class="headerlink" href="#9-vendor-agnostic-architecture-the-moat-design-decisions-rationale" title="Permanent link">&para;</a></h2>
+<p><em>Added 2026-05-27 (refreshed same day to fold in Phase D). Documents work on branch <code>vendor-abstraction-phase-a</code> (commits <code>1c45d29</code>→<code>41e71b3</code>). Two axes: </em><em>Phase A/B = the vendor (adapter) side</em><em> — how you talk to one box; </em><em>Phase D = the topology (DomainPack) side</em><em> — how a fault domain is diagnosed across vendors.</em></p>
+<blockquote>
+<p><strong>Status discipline (read first).</strong> Everything in §9 is on a <strong>feature branch</strong>, every adapter flag defaults <strong>OFF</strong>, nothing here is on <code>main</code> or deployed to the box, and the Arista path (+ the EVPN eAPI shapes / mnemonics from Phase D) is <strong>shape/logic-proven, not live-proven</strong> (§9.6). The §1–8 assessment of <code>main</code> — and the demo that runs from it — is <strong>unchanged</strong> by this section. This is staged capability with the demo's downside fully protected.</p>
+</blockquote>
+<h3 id="91-why-vendor-agnostic-at-all-the-strategic-rationale">9.1 Why vendor-agnostic at all — the strategic rationale<a class="headerlink" href="#91-why-vendor-agnostic-at-all-the-strategic-rationale" title="Permanent link">&para;</a></h3>
+<p>The system in §1–8 is <strong>Cisco-only by construction</strong>: every parser speaks IOS-XE CLI, every triage rule keys on a Cisco mnemonic, every connection is scrapli→IOS-XE. That is a <em>product</em> ceiling, not just a technical one — real NetOps customers run mixed fleets. The ability to drive <strong>Cisco <em>and</em> Arista</strong> (and later others) from a single reasoning core is the durable differentiator: the "moat."</p>
+<p><strong>Guiding principle — thin vendor edges, fat neutral core.</strong> Vendor-specificity should live in exactly three places: (1) syslog mnemonics, (2) CLI/RPC parsers, (3) fix-command strings. Everything above them — triage, specialists, digital twin, knowledge graph, audit, determinism — stays vendor-blind. Onboarding a vendor should be an <em>additive plugin</em>, never a fork.</p>
+<h3 id="92-target-shape-recap">9.2 Target shape (recap)<a class="headerlink" href="#92-target-shape-recap" title="Permanent link">&para;</a></h3>
+<p>A <strong>neutral core + four plugin types</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Plugin type</th>
+<th>Responsibility</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VendorAdapter</strong></td>
+<td><code>connect</code> / <code>collect(capability)→NeutralState</code> / <code>render(NeutralChange)→cmds</code> / <code>syslog_to_event</code> / <code>capabilities()</code></td>
+<td>A (seam) + B (Arista)</td>
+</tr>
+<tr>
+<td><strong>Neutral Model</strong></td>
+<td><code>NeutralState</code> / <code>NeutralEvent</code> / <code>NeutralChange</code> + capability taxonomy</td>
+<td>A</td>
+</tr>
+<tr>
+<td><strong>DomainPack</strong></td>
+<td>fault taxonomy + neutral evidence plan + fix templates (wraps the existing 42 trees / 72 scenarios)</td>
+<td><strong>D (D0–D4: interface + EVPN pack)</strong></td>
+</tr>
+<tr>
+<td><strong>InventorySource</strong></td>
+<td>NetBox-backed devices/topology/intent <strong>per tenant</strong></td>
+<td>C (deferred)</td>
+</tr>
+</tbody>
+</table>
+<p>Phase A builds the VendorAdapter seam + the thin Neutral Model and wraps the existing Cisco path behind it; Phase B adds the Arista adapter. <strong>Phase D builds the DomainPack plugin — the <em>topology</em> side: the catch-all default pack (proven identical to the catalogue) plus the first specialised pack (EVPN), selected by device capability.</strong> InventorySource + multi-tenancy (Phase C) remain deliberately later (and carry the determinism-baseline re-record risk, so they're sequenced last).</p>
+<h3 id="93-decision-records-the-logic-behind-each-choice">9.3 Decision records — the logic behind each choice<a class="headerlink" href="#93-decision-records-the-logic-behind-each-choice" title="Permanent link">&para;</a></h3>
+<p>Each decision is stated with its <strong>rationale (why)</strong> and the <strong>trade-off (what we accepted)</strong>. This is the core of "explain the logic for all these decisions."</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Rationale (why)</th>
+<th>Trade-off accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D1</strong></td>
+<td><strong>Normalize at the MCP (collection) layer</strong> — not in the specialists, not "at the LLM".</td>
+<td>MCP is the single choke point where <em>all</em> device data enters the reasoning plane (specialists pull evidence via MCP tools). Normalize here once and everything upstream is vendor-blind for free. Normalizing in 4 specialists would duplicate vendor logic; letting the LLM eat raw vendor output would destroy determinism and bloat prompts.</td>
+<td>The MCP layer owns the neutral-shape contract and the per-vendor parsing complexity concentrates here.</td>
+</tr>
+<tr>
+<td><strong>D2</strong></td>
+<td><strong>Capability-based dispatch</strong> — the core never branches on a vendor string.</td>
+<td><code>if vendor == "cisco"</code> scattered through code is exactly how "vendor-agnostic" systems rot back into vendor-coupled ones. A device advertises dotted capabilities (<code>routing.ospf</code>, <code>overlay.vxlan-evpn</code>); the core asks "can it do X?", never "is it Cisco?". Adding a vendor never touches dispatch.</td>
+<td>Needs a capability taxonomy and accurate per-adapter declarations; one layer of indirection.</td>
+</tr>
+<tr>
+<td><strong>D3</strong></td>
+<td><strong>Thin <code>NeutralState{raw: dict}</code> in Phase A</strong> — defer full typed per-protocol neutral schemas.</td>
+<td>The 37 parsers already emit well-shaped dicts. Wrapping that dict <em>unchanged</em> lets Phase A wrap every parser with provably zero behavior change — fast — and defers the large typed-schema work until a second vendor reveals what's <em>truly</em> common. YAGNI: don't design the rich schema before the data tells you its shape.</td>
+<td><code>raw</code> is loosely typed in Phase A; the richer typed neutral model is scheduled debt, not an oversight.</td>
+</tr>
+<tr>
+<td><strong>D4</strong></td>
+<td><strong>Strangler reroute behind default-OFF flags + shadow mode.</strong></td>
+<td>The system is demo-critical ~2 weeks out; a big-bang refactor risks the demo. Reroute one parser at a time behind <code>MCP_USE_ADAPTER</code> (OFF ⇒ byte-identical legacy path) with <code>MCP_ADAPTER_SHADOW</code> (run both, log mismatches, <strong>return legacy</strong>), so parity is validated on live traffic at zero risk before the new path is trusted.</td>
+<td>Temporary dual-path code + flag bookkeeping + a shared reroute helper.</td>
+</tr>
+<tr>
+<td><strong>D5</strong></td>
+<td><strong>Golden byte-for-byte parity</strong> is the acceptance test.</td>
+<td>"Looks the same" is insufficient when determinism depends on <em>exact bytes</em> (§9.4). The bar is <code>adapter.collect().raw == legacy_parser_output</code> exactly — turning "trust me" into a mechanical proof.</td>
+<td>Needs a pydantic-capable test venv (homebrew py3.11 lacks pydantic, so parity tests would <em>silently skip</em>); solved with a dedicated parity venv. A "passed" count is meaningless until you check what skipped.</td>
+</tr>
+<tr>
+<td><strong>D6</strong></td>
+<td><strong>Arista via eAPI (structured JSON)</strong> — not CLI screen-scraping.</td>
+<td>Arista exposes eAPI returning native JSON; parsing JSON is robust and deterministic, whereas regex-scraping <code>show</code> text is the exact brittleness we're trying to escape. JSON-native collection also future-proofs toward gNMI/OpenConfig.</td>
+<td>A <code>pyeapi</code> dependency (imported <strong>lazily</strong> so <code>import adapters</code> stays offline-safe); requires eAPI enabled on the device.</td>
+</tr>
+<tr>
+<td><strong>D7</strong></td>
+<td><strong>Arista is diagnose/collect-only</strong> for the workshop (<code>render</code>/<code>apply</code> raise <code>NotImplementedError</code>).</td>
+<td>The demo decision is "diagnose + recommend." Config-push to a second vendor is higher-risk and outside the demo's value story. Build the read path well; defer the write path until there's a reason.</td>
+<td>No automated remediation on Arista yet — HITL "recommend" covers the demo.</td>
+</tr>
+<tr>
+<td><strong>D8</strong></td>
+<td><strong>Two synchronous env maps:</strong> dispatch (<code>MCP_DEVICE_PLATFORMS</code>) + addressing (<code>ARISTA_EAPI_HOSTS</code>).</td>
+<td>The collection path runs <strong>synchronously inside the server's event loop</strong>; the async NetBox resolver can't run there (loop-bound locks ⇒ it silently fell back to <code>cisco_iosxe</code> for <em>every</em> device — multi-vendor never engaged). A static, I/O-free env map is the only loop-safe resolution <em>and</em> makes the demo deterministic (no live-NetBox in the hot path). Splitting "which adapter" from "which host" keeps each map tiny; adding a device = two JSON entries, zero code.</td>
+<td>Env-driven rather than NetBox-driven config (NetBox stays the eventual SSOT, wired in a later async-aware phase).</td>
+</tr>
+<tr>
+<td><strong>D9</strong></td>
+<td><strong>Value-based collector rollout</strong> — reroute the ~10 actively-used collectors; defer the ~27 long-tail parsers.</td>
+<td>Not all 37 parsers are on the hot reasoning path. Rerouting the 10 the specialists actually call delivers the multi-vendor capability that matters now; tail parsers get rerouted per-protocol when that protocol actually goes multi-vendor. Effort follows value.</td>
+<td>The long tail stays Cisco-only until needed — a deliberate, documented backlog.</td>
+</tr>
+<tr>
+<td><strong>D10</strong></td>
+<td><strong>Hold the merge to <code>main</code></strong> until live validation passes.</td>
+<td>Shape-proven ≠ live-proven. <code>main</code> is the demo/deploy source of truth <em>and</em> the safe mock fallback. Merging is a statement of confidence; doing it before Arista shapes are confirmed against a real device would put unproven code in the demo lineage for no benefit (flags are OFF anyway).</td>
+<td>The branch lives longer; the eventual merge is a clean fast-forward (main hasn't diverged).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phase D (topology side) decisions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Rationale (why)</th>
+<th>Trade-off accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D11</strong></td>
+<td><strong>Topology is data, not code</strong> — packs are selected by capability/domain, never by branching on a topology name.</td>
+<td>Same anti-pattern guard as D2: <code>if topology == "spine-leaf"</code> is how a topology-agnostic system rots. A device advertises <code>overlay.vxlan-evpn</code>; the resolver picks the EVPN pack. Topology emerges from <em>which devices have which capabilities</em>, not a hardcoded shape — so a new fabric is a pack + a capability, not a fork.</td>
+<td>Needs a capability→pack resolver and per-pack claim declarations.</td>
+</tr>
+<tr>
+<td><strong>D12</strong></td>
+<td><strong>DomainPack wraps the catalogue; <code>DefaultDomainPack</code> is the catch-all, proven identical</strong> — specialised packs are added behind capability selection.</td>
+<td>Exact mirror of the A1→A2 adapter strangler: wrap today's behavior behind an interface, prove byte-identity (<strong>diagnosis parity</strong> — the pack delegates to the catalogue across every accessor), <em>then</em> add the specialised pack. No consumer is rewired in the foundation unit, so it's zero behavior change.</td>
+<td>A temporary delegation layer; consumer reroute onto the pack seam is a later unit.</td>
+</tr>
+<tr>
+<td><strong>D13</strong></td>
+<td><strong>EVPN forces the first typed neutral schema</strong> (<code>EVPNParserResponse</code>), the debt deferred in D3.</td>
+<td>A second <em>domain</em> (not just a second vendor) is the right forcing function for a typed neutral shape. Grounding it in the EXISTING <code>evpn_parser</code> output means today's Cisco parser validates against it unchanged — the shape-proven link the cross-vendor EVPN collectors build on.</td>
+<td>One typed schema now exists alongside the thin <code>raw</code> dicts; the rest stay thin until similarly justified.</td>
+</tr>
+<tr>
+<td><strong>D14</strong></td>
+<td><strong>The agents-layer pack returns collector SLUG STRINGS, never imports the MCP <code>Collector</code> enum.</strong></td>
+<td>The DomainPack lives in the reasoning (agents) layer; the <code>Collector</code> enum lives in the MCP layer, reached over HTTP. A cross-layer import would couple them — the exact coupling the HTTP boundary prevents. The neutral evidence plan is expressed in the string slugs both sides already agree on.</td>
+<td>The string↔enum agreement is a convention; a <em>test-only</em> <code>Collector</code> import guards against drift.</td>
+</tr>
+<tr>
+<td><strong>D15</strong></td>
+<td><strong>EVPN syslog triage lives at the adapter vendor-edge (<code>syslog_to_event</code>), not the team-leader.</strong></td>
+<td>Vendor mnemonic→neutral-fault mapping is one of the three thin vendor edges (D-principle). Putting it in the adapter keeps it additive: only EVPN lines change, OSPF/plain stay <code>unclassified</code>, and the legacy 42-rule live triage is untouched (no demo risk).</td>
+<td>The neutral event path isn't yet wired into live triage — a separate later unit.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="94-why-this-preserves-the-determinism-guarantee">9.4 Why this preserves the determinism guarantee<a class="headerlink" href="#94-why-this-preserves-the-determinism-guarantee" title="Permanent link">&para;</a></h3>
+<p>The §7 strength — <em>same incident → same exact answer, proven 21/21 bit-exact</em> — depends entirely on the <strong>bytes fed to the LLM</strong>, and the MCP collection output <em>is</em> those bytes (via the evidence gatherer). Therefore the adapter seam is determinism-safe <strong>iff</strong> the adapter reproduces the legacy parser output byte-for-byte. That is precisely what golden parity (D5) and shadow mode (D4) prove.</p>
+<ul>
+<li><strong>Cisco adapter:</strong> byte-identical to the legacy parser (proven) ⇒ flipping <code>MCP_USE_ADAPTER</code> <strong>cannot change Cisco reasoning</strong>.</li>
+<li><strong>Arista adapter:</strong> normalizes <em>into the same shape</em> ⇒ once its eAPI shapes are live-validated (§9.6), Arista reasoning is deterministic on the same footing.</li>
+<li><strong>Caveat:</strong> if a future cache-key gains a tenant/vendor dimension, the gpt-4o-mini determinism baseline must be <strong>re-recorded</strong> (a known follow-up, not a silent risk).</li>
+</ul>
+<h3 id="95-build-status-branch-vendor-abstraction-phase-a">9.5 Build status (branch <code>vendor-abstraction-phase-a</code>)<a class="headerlink" href="#95-build-status-branch-vendor-abstraction-phase-a" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Commit</th>
+<th>What it delivered</th>
+<th>Gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0</td>
+<td><code>fbdffd2</code></td>
+<td>Foundation: neutral model + <code>VendorAdapter</code> ABC + registry + factory</td>
+<td>QA-fixed an asyncio loop/Lock hazard</td>
+</tr>
+<tr>
+<td>A1</td>
+<td><code>95598a8</code></td>
+<td><code>CiscoIOSXEAdapter</code> + <code>MockAdapter</code> (wrap existing device + parsers)</td>
+<td>golden parity byte-for-byte</td>
+</tr>
+<tr>
+<td>A2</td>
+<td><code>741ab63</code></td>
+<td>Flag-gated reroute of ospf+interface (default OFF; shadow mode)</td>
+<td>route byte-identity 10/10</td>
+</tr>
+<tr>
+<td>A3.0</td>
+<td><code>c5644eb</code></td>
+<td>Shared reroute helper; reroute bgp + routing_table</td>
+<td>parity/shadow 69 passed</td>
+</tr>
+<tr>
+<td>A3.1</td>
+<td><code>3da3da1</code> / <code>d38c7cf</code> / <code>ca37b41</code></td>
+<td>Rerouted the 10 active collectors (cdp, stp, aaa, login_policy, security, bgp_summary)</td>
+<td>parity 100 passed</td>
+</tr>
+<tr>
+<td><strong>B-1</strong></td>
+<td><code>1c45d29</code></td>
+<td><strong>AristaEOSAdapter</strong> via eAPI — OSPF/BGP/interfaces → the Cisco-shaped neutral dict (collect-only)</td>
+<td>33 shape-parity tests</td>
+</tr>
+<tr>
+<td><strong>B-2</strong></td>
+<td><code>4b948b9</code></td>
+<td>Loop-safe <strong>platform map</strong> (<code>MCP_DEVICE_PLATFORMS</code>) — fixes the silent-cisco fallback in-loop</td>
+<td>offline 320 / parity 141</td>
+</tr>
+<tr>
+<td><strong>B-3</strong></td>
+<td><code>1df602a</code></td>
+<td>Per-device <strong>eAPI host map</strong> (<code>ARISTA_EAPI_HOSTS</code>) — multi-device lab addressable</td>
+<td>offline 329 / parity 150</td>
+</tr>
+<tr>
+<td>docs</td>
+<td><code>fc0cf4a</code></td>
+<td><code>VENDOR_LAB_BRINGUP_RUNBOOK.md</code> — turnkey live bring-up + validation</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>D-0</strong></td>
+<td><code>cab4e4e</code></td>
+<td><code>DomainPack</code> interface + <code>DefaultDomainPack</code> (wraps the catalogue)</td>
+<td><strong>diagnosis parity</strong> (17 tests)</td>
+</tr>
+<tr>
+<td><strong>D-1</strong></td>
+<td><code>a452887</code></td>
+<td><code>EVPNParserResponse</code> — the first typed neutral schema</td>
+<td>8 tests (Cisco shape-proven + Arista-shaped validates)</td>
+</tr>
+<tr>
+<td><strong>D-2</strong></td>
+<td><code>7260131</code></td>
+<td><code>Collector.EVPN</code> on Cisco + Mock + Arista → the neutral EVPN shape</td>
+<td>parity venv 185</td>
+</tr>
+<tr>
+<td><strong>D-3</strong></td>
+<td><code>2e1d692</code></td>
+<td><code>EVPNDomainPack</code> + capability-based resolver selection</td>
+<td>parity venv 197</td>
+</tr>
+<tr>
+<td><strong>D-4</strong></td>
+<td><code>41e71b3</code></td>
+<td>EVPN syslog triage in <code>syslog_to_event</code> (both vendors → neutral fault)</td>
+<td>parity 214 / py3.11 345</td>
+</tr>
+</tbody>
+</table>
+<p>Net: <strong>both axes are code-complete and proven offline.</strong> Vendor side: dispatch + addressing + normalization (a lab device = two JSON env entries). Topology side: the EVPN fault domain is diagnosable end-to-end — <em>capability → pack selection → neutral evidence plan → neutral collectors → both adapters → neutral shape</em>, plus <em>EVPN syslog → neutral fault_class</em>.</p>
+<h3 id="96-whats-not-done-the-live-validation-gate">9.6 What's NOT done — the live-validation gate<a class="headerlink" href="#96-whats-not-done-the-live-validation-gate" title="Permanent link">&para;</a></h3>
+<p><strong>Shape-proven ≠ live-proven.</strong> The eAPI JSON <em>fixtures</em> encode best-knowledge of EOS output, not <em>observed</em> output. The shape-parity tests prove the normalizers are internally consistent and produce the right neutral shape; they do <strong>not</strong> prove the eAPI paths/casing/types are real. Until validated against a live Arista device, the moat is "proven in principle."</p>
+<p>The gate is <strong><code>VENDOR_LAB_BRINGUP_RUNBOOK.md</code> §4</strong>: per-collector, run the raw eAPI command on a real device and confirm each mapping (<code>peerState</code> casing, the OSPF <code>instList</code> path, <code>interfaceAddress</code> list-vs-dict, the real interface-drops key, <code>asn</code>/<code>upDownTime</code> types). Each divergence ⇒ fix the normalizer <strong>and</strong> correct the fixture to the observed shape, then re-run the gate. The merge to <code>main</code> (D10) is held until this passes.</p>
+<p><strong>Phase D adds two more best-knowledge items to that same gate</strong> (the most uncertain yet, since they're a second domain <em>and</em> a second vendor):
+- <strong>EVPN eAPI shapes (D-2):</strong> <code>show bgp evpn summary</code> peer shape + <code>show vxlan vni</code> (the <code>_iter_eos_vxlan_vnis</code> variants); per-type route counts + MAC-inconsistency are stubbed at 0 pending the <code>show bgp evpn</code> route-table walk.
+- <strong>EVPN syslog mnemonics (D-4):</strong> the <code>_CISCO_FAULT_TABLE</code> / <code>_EOS_FAULT_TABLE</code> patterns are plausible, not device-observed — confirm against real EVPN incident logs and adjust the regexes.</p>
+<h3 id="97-how-this-updates-the-7-risk-picture">9.7 How this updates the §7 risk picture<a class="headerlink" href="#97-how-this-updates-the-7-risk-picture" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Reduces:</strong> vendor lock-in / the single-vendor product ceiling (Phase A/B) <strong>and</strong> the topology-coupling ceiling (Phase D) — a new vendor is an adapter, a new fault domain/topology is a DomainPack, both additive.</li>
+<li><strong>Adds (managed):</strong> the Arista eAPI shapes (B-1/D-2) and the EVPN mnemonics (D-4) are unverified against hardware — mitigated by flags-OFF, the §9.6 validation gate, and the safe mock fallback on <code>main</code>.</li>
+<li><strong>Net:</strong> the demo's <em>downside</em> is protected (<code>main</code> untouched, flags OFF, fast-forward merge later) while the <em>upside</em> — credible dual-vendor Cisco+Arista with an EVPN-aware diagnosis path — is staged and ready to validate the moment the lab is reachable. The remaining Phase D unit (D-5, twin overlay reachability) is an optional stretch; Phase C (InventorySource/tenancy) is the larger follow-on and is sequenced last because its cache-key change forces a determinism re-baseline.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../seven-pass-pipeline/" class="md-footer__link md-footer__link--next" aria-label="Next: 7-pass validation pipeline">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                7-pass validation pipeline
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Eduard Dulharu. All rights reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eduardd76" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

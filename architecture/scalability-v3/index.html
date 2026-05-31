@@ -1,0 +1,2725 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Risk-managed autonomous network remediation. Multi-vendor, compliance-aware, auditable.">
+      
+      
+        <meta name="author" content="Eduard Dulharu">
+      
+      
+        <link rel="canonical" href="https://eduardd76.github.io/dream_team_public/architecture/scalability-v3/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../vendor-abstraction/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Scalability — V3 persistent shadow - Agentic NetOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dt-v3-persistent-shadow-twin" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agentic NetOps" class="md-header__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agentic NetOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scalability — V3 persistent shadow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pitch/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Pitch
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../engineering/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Engineering
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../onboarding/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Onboarding
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agentic NetOps" class="md-nav__button md-logo" aria-label="Agentic NetOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agentic NetOps
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eduardd76/dream_team_public" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dream_team_public
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../pitch/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pitch
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pitch
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/one-pager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One-pager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/what-this-is/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What this is
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/roi-math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROI math
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pitch/pilot-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    60-day pilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-layer architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/seven-pass-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7-pass validation pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/fault-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EVPN fault rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/kg-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KG schema (Neo4j)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/test-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalability — V3 persistent shadow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalability — V3 persistent shadow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-problem-fidelity-vs-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The problem: fidelity vs scale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The problem: fidelity vs scale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-fidelity-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Fidelity gap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-scale-wall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Scale wall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-persistent-shadow-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The persistent shadow pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lifecycle-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Lifecycle in detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Lifecycle in detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-boot-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Boot once
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-per-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Per-incident
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-snapshot-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Snapshot store
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cost-analysis-16-leaf-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cost analysis (16-leaf fabric)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Failure modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Failure modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-snapshot-corruption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Snapshot corruption
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-baseline-drift-vs-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Baseline drift vs prod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-vrnetlab-boot-races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 vrnetlab boot races
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-concurrent-incidents-touching-the-same-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Concurrent incidents touching the same device
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-integration-with-confidencescorers-path-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integration with ConfidenceScorer's path selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-file-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. File map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-implementation-status-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Implementation status (2026-05-30)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Implementation status (2026-05-30)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-landed-in-this-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What landed in this commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-workflow-provision-bring-up-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator workflow (provision → bring up → validate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-confirmed-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost (confirmed 2026-05-30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deferred-to-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred to follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vendor-abstraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor abstraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cost-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cost analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trade-offs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trade-offs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../onboarding/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Onboarding
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Onboarding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/codebase-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codebase map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/local-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local dev
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy (EC2 + SSM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../onboarding/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/demo-runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/workshop-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshop status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-problem-fidelity-vs-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The problem: fidelity vs scale
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The problem: fidelity vs scale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-fidelity-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Fidelity gap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-scale-wall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Scale wall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-persistent-shadow-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The persistent shadow pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lifecycle-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Lifecycle in detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Lifecycle in detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-boot-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Boot once
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-per-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Per-incident
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-snapshot-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Snapshot store
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cost-analysis-16-leaf-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cost analysis (16-leaf fabric)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Failure modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Failure modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-snapshot-corruption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Snapshot corruption
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-baseline-drift-vs-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Baseline drift vs prod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-vrnetlab-boot-races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 vrnetlab boot races
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-concurrent-incidents-touching-the-same-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Concurrent incidents touching the same device
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-integration-with-confidencescorers-path-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integration with ConfidenceScorer's path selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-file-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. File map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-implementation-status-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Implementation status (2026-05-30)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Implementation status (2026-05-30)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-landed-in-this-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What landed in this commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-workflow-provision-bring-up-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator workflow (provision → bring up → validate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-confirmed-2026-05-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost (confirmed 2026-05-30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deferred-to-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred to follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="dt-v3-persistent-shadow-twin">DT V3 — Persistent Shadow Twin<a class="headerlink" href="#dt-v3-persistent-shadow-twin" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> scaffolding committed; real <code>vrnetlab</code> integration follows.
+<strong>Branch:</strong> <code>vendor-abstraction-phase-a</code>
+<strong>Owners:</strong> Architect agent / DT team.</p>
+<p>This doc explains the architectural piece that turns the Dream Team Digital
+Twin from a per-incident demo (Layer 2 SRL/FRR via <code>containerlab</code>) into
+a production-grade validation surface (Layer 3 real vendor OS via
+<code>vrnetlab</code>-packaged qcow2 images). It is the slide that answers the
+enterprise architect's first hard question: <strong>"How does this scale to a
+16-leaf fabric with real NX-OS?"</strong></p>
+<hr />
+<h2 id="1-the-problem-fidelity-vs-scale">1. The problem: fidelity vs scale<a class="headerlink" href="#1-the-problem-fidelity-vs-scale" title="Permanent link">&para;</a></h2>
+<p>The current Digital Twin (<code>agents/shared/containerlab_manager.py</code>,
+called from <code>ValidateNode</code>) spins up a containerlab topology per incident:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Today (Layer 2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendor twin</td>
+<td>Nokia SR Linux + FRR + cEOS (substitutes)</td>
+</tr>
+<tr>
+<td>Cold-boot time</td>
+<td>10–15s per device</td>
+</tr>
+<tr>
+<td>RAM per device</td>
+<td>200–600 MB</td>
+</tr>
+<tr>
+<td>Per-incident cost</td>
+<td>full deploy → wait → apply → validate → destroy</td>
+</tr>
+<tr>
+<td>Fidelity</td>
+<td>covers RFC-level behavior; MISSES vendor-quirky syntax</td>
+</tr>
+</tbody>
+</table>
+<p>Two real problems show up the moment we leave the workshop demo:</p>
+<h3 id="11-fidelity-gap">1.1 Fidelity gap<a class="headerlink" href="#11-fidelity-gap" title="Permanent link">&para;</a></h3>
+<p>SRL and FRR are <em>good</em> EVPN implementations but they are not NX-OS. The
+silent class of bugs that bites real datacenter operators —</p>
+<ul>
+<li><strong>NX-OS auto-RT derivation</strong> (<code>route-target both auto</code>) vs vendor-X's
+  explicit <code>route-target</code> strings: the #1 cross-vendor EVPN footgun.</li>
+<li><strong>mgmt-vrf quirks</strong> on NX9K: the management plane and route-target
+  config live in separate VRFs with subtly different syntax.</li>
+<li><strong>L3VNI bind-to-SVI</strong> ordering: NX-OS requires a specific
+  <code>interface nve1</code> → <code>member vni X associate-vrf</code> ordering.</li>
+<li><strong>NVE source-interface</strong> validation: NX-OS rejects mismatched
+  loopback configs at parse-time, not at runtime.</li>
+</ul>
+<p>— is invisible to SRL. The Layer 2 DT will green-light a fix that fails
+the moment it lands on the real NX9K.</p>
+<h3 id="12-scale-wall">1.2 Scale wall<a class="headerlink" href="#12-scale-wall" title="Permanent link">&para;</a></h3>
+<p>A 16-leaf EVPN-VXLAN fabric (production-typical: 2 spines × 14 leaves)
+on vrnetlab-packaged NX9K qcow2:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>per-device RAM:      3-8 GB     (NX9K image: ~6 GB warm)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>per-device boot:     ~3 min     (NX9K cold-boot to NX-API ready)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>fabric RAM:         48-128 GB   (16 × 3-8 GB)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>fabric cold-boot:   ~50 min     (parallel cold-boot; bottlenecked by host I/O)
+</code></pre></div>
+<p>If we cold-boot the whole twin per incident, we burn 50 min and an
+EC2 <code>m6i.8xlarge</code> per validation. The current Layer 2 DT was acceptable
+for the workshop pitch (3 SRL containers, 30s total). It is not
+acceptable for real fabrics.</p>
+<hr />
+<h2 id="2-the-persistent-shadow-pattern">2. The persistent shadow pattern<a class="headerlink" href="#2-the-persistent-shadow-pattern" title="Permanent link">&para;</a></h2>
+<p>V3 inverts the lifecycle. Instead of building the twin per-incident, the
+twin is <strong>always on</strong>, and per-incident we just snapshot-restore-apply.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>                                ┌──────────────────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                                │      DT Shadow Host          │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                                │   (dedicated EC2 instance)   │
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                                │                              │
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                                │  ┌────────────────────────┐  │
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                                │  │ vrnetlab-NX9K-spine1   │  │
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                                │  │   container (warm)     │  │
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                                │  │   snapshot: baseline   │  │
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                                │  └────────────────────────┘  │
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>   ┌────────────────────┐       │  ┌────────────────────────┐  │
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>   │  ValidateNode      │       │  │ vrnetlab-NX9K-leaf-nx  │  │
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   │  (per incident)    │──────►│  │   container (warm)     │  │
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>   │                    │  RPC  │  │   snapshot: baseline   │  │
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>   │  DTTwinManager     │       │  └────────────────────────┘  │
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>   └────────────────────┘       │  ┌────────────────────────┐  │
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                                │  │ vrnetlab-vEOS-leaf-ar  │  │
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                                │  │   container (warm)     │  │
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                                │  │   snapshot: baseline   │  │
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>                                │  └────────────────────────┘  │
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                                └──────────────────────────────┘
+</code></pre></div>
+<p>The twin host boots ONCE at startup (the ~50 min cost is paid once per
+DT-rebuild — e.g. weekly when we re-snapshot from prod config drift).
+Per-incident the manager runs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>   incident arrives
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>       │
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>       ▼
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>   ScopePolicy.decide(fault_type, device_id, commands)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>       │
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>       ├──── LAYER_2_SRL    ──► fall back to ContainerlabManager (existing)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>       │
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>       ├──── LAYER_3_VRNETLAB ──► continue in V3
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>       │
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>       ▼
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>   DTTwinManager.restore_baseline(scope={leaf-nx, spine1})    ~1s
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>       ▼
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>   DTTwinManager.apply_fix(leaf-nx, vendor_native_commands)   ~2s
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>       ▼
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>   DTTwinManager.validate_fix(device_id, fault_type, pattern_id)  ~5s
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>       ▼
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>   DTTwinManager.restore_baseline(scope={leaf-nx, spine1})    ~1s
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>       │
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>       ▼
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>   ValidationEvidenceBundle  →  ConfidenceScorer/approval gate
+</code></pre></div>
+<p>Per-incident wall clock: <strong>~10s</strong> (vs ~50 min on the cold-boot path,
+vs ~30s on Layer 2 SRL — but Layer 2 lies, V3 doesn't).</p>
+<hr />
+<h2 id="3-lifecycle-in-detail">3. Lifecycle in detail<a class="headerlink" href="#3-lifecycle-in-detail" title="Permanent link">&para;</a></h2>
+<h3 id="31-boot-once">3.1 Boot once<a class="headerlink" href="#31-boot-once" title="Permanent link">&para;</a></h3>
+<p><code>DTTwinManager.boot_baseline()</code>:
+1. Load <code>fabric.yaml</code> (same source-of-truth as Layer 2 — see
+   <code>agents/shared/topology_generator.py</code>).
+2. For each device in the fabric, in parallel:
+   - <code>backend.boot_device(device_id, vendor, image)</code> — cold-boot
+     vrnetlab container, wait for vendor-OS prompt.
+   - <code>backend.snapshot(container_id, "baseline")</code> — take baseline.
+   - <code>SnapshotStore.put(ref)</code> — persist baseline ref to disk.</p>
+<h3 id="32-per-incident">3.2 Per-incident<a class="headerlink" href="#32-per-incident" title="Permanent link">&para;</a></h3>
+<p><code>DTTwinManager.restore_baseline(scope) → apply_fix(device_id, cmds) →
+validate_fix(device_id, fault_type, pattern_id) → restore_baseline(scope)</code>.</p>
+<p>The two restore calls bracket the apply+validate. The post-validation
+restore guarantees the next incident lands on a clean baseline, even if
+the proposed fix made the device unreachable.</p>
+<h3 id="33-snapshot-store">3.3 Snapshot store<a class="headerlink" href="#33-snapshot-store" title="Permanent link">&para;</a></h3>
+<p><code>SnapshotStore</code> (<code>agents/shared/snapshot_store.py</code>) is a JSON-backed
+map <code>(device_id, snapshot_name) → SnapshotRef</code>. It survives the
+manager process restart so that:
+- a fresh DTTwinManager instance can re-attach to the running shadow
+- the <code>is_warm</code> property correctly reports operational status without
+  re-walking the backend</p>
+<hr />
+<h2 id="4-cost-analysis-16-leaf-fabric">4. Cost analysis (16-leaf fabric)<a class="headerlink" href="#4-cost-analysis-16-leaf-fabric" title="Permanent link">&para;</a></h2>
+<p>EC2 sizing for the shadow host (NX9K-heavy fabric):</p>
+<table>
+<thead>
+<tr>
+<th>Fabric size</th>
+<th>RAM (warm)</th>
+<th>Disk (qcow2)</th>
+<th>Suggested instance</th>
+<th>$/hr (us-east-1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 devices</td>
+<td>~18 GB</td>
+<td>~30 GB</td>
+<td><code>m6i.2xlarge</code></td>
+<td>~$0.38</td>
+</tr>
+<tr>
+<td>16 devices</td>
+<td>~96 GB</td>
+<td>~160 GB</td>
+<td><code>m6i.8xlarge</code></td>
+<td>~$1.54</td>
+</tr>
+<tr>
+<td>32 devices</td>
+<td>~192 GB</td>
+<td>~320 GB</td>
+<td><code>m6i.16xlarge</code></td>
+<td>~$3.07</td>
+</tr>
+</tbody>
+</table>
+<p>Cold-boot cost (paid once per DT-rebuild):</p>
+<table>
+<thead>
+<tr>
+<th>Fabric size</th>
+<th>Sequential boot</th>
+<th>Parallel boot (host I/O bound)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 devices</td>
+<td>~9 min</td>
+<td>~3-4 min</td>
+</tr>
+<tr>
+<td>16 devices</td>
+<td>~48 min</td>
+<td>~10-15 min (depends on EBS gp3 IOPS)</td>
+</tr>
+<tr>
+<td>32 devices</td>
+<td>~96 min</td>
+<td>~20-25 min</td>
+</tr>
+</tbody>
+</table>
+<p>Per-incident validation cost (the headline number):</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Per-incident wall clock</th>
+<th>Per-incident $ (16-leaf, m6i.8xlarge)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer 2 SRL (today)</td>
+<td>~30s</td>
+<td>~$0.013</td>
+</tr>
+<tr>
+<td>V3 cold-boot (naïve)</td>
+<td>~50 min</td>
+<td>~$1.28</td>
+</tr>
+<tr>
+<td>V3 shadow (this design)</td>
+<td>~10s</td>
+<td>~$0.004</td>
+</tr>
+</tbody>
+</table>
+<p>The shadow pattern moves the cost from per-incident (variable, scales
+with incident volume) to per-DT-rebuild (fixed, ~weekly). At even one
+incident/day on a 16-leaf fabric, V3-shadow is cheaper than V3-cold.</p>
+<hr />
+<h2 id="5-failure-modes">5. Failure modes<a class="headerlink" href="#5-failure-modes" title="Permanent link">&para;</a></h2>
+<h3 id="51-snapshot-corruption">5.1 Snapshot corruption<a class="headerlink" href="#51-snapshot-corruption" title="Permanent link">&para;</a></h3>
+<p>A snapshot ref in <code>SnapshotStore</code> points to a backend artifact (docker
+image, qcow2 overlay) that may have been pruned/deleted out-of-band.
+<strong>Detection:</strong> <code>backend.restore()</code> fails on the missing artifact.
+<strong>Mitigation:</strong> <code>SnapshotStore._load()</code> is tolerant of malformed JSON
+(returns empty store, operator runs <code>boot_baseline()</code> again). For the
+RealVrNetlabBackend, the integration will add a periodic
+<code>verify_snapshots</code> job that exercises each snapshot ref weekly.</p>
+<h3 id="52-baseline-drift-vs-prod">5.2 Baseline drift vs prod<a class="headerlink" href="#52-baseline-drift-vs-prod" title="Permanent link">&para;</a></h3>
+<p>Over time the shadow's baseline drifts from live prod config (NetBox
+intent gets edited, but the shadow was snapshotted last week). The fix
+validates against a baseline that no longer matches reality.
+<strong>Mitigation (roadmap):</strong> continuous-sync-baseline daemon that takes a
+fresh snapshot from the live prod config every N hours.
+<strong>Current commit:</strong> out of scope; manual <code>boot_baseline()</code> re-run.</p>
+<h3 id="53-vrnetlab-boot-races">5.3 vrnetlab boot races<a class="headerlink" href="#53-vrnetlab-boot-races" title="Permanent link">&para;</a></h3>
+<p>NX9K vrnetlab containers occasionally fail to reach NX-API ready within
+the timeout. The boot is non-deterministic (depends on host I/O,
+qcow2 prep time).
+<strong>Detection:</strong> <code>boot_device()</code> returns timeout error; <code>BootResult.errors</code>
+surfaces the device.
+<strong>Mitigation:</strong> the manager fans out boots in parallel but each one is
+isolated (<code>asyncio.gather</code>); partial fabric success is reported as a
+non-fatal error. Operator triages individually.</p>
+<h3 id="54-concurrent-incidents-touching-the-same-device">5.4 Concurrent incidents touching the same device<a class="headerlink" href="#54-concurrent-incidents-touching-the-same-device" title="Permanent link">&para;</a></h3>
+<p>Two incidents arrive concurrently both targeting <code>leaf-nx</code>. The second
+restore-apply-validate would clobber the first.
+<strong>Current commit:</strong> no per-device lock — incidents are expected to be
+serialized at the Team Leader. The follow-up commit adds a per-device
+asyncio.Lock + a queue.</p>
+<hr />
+<h2 id="6-integration-with-confidencescorers-path-selection">6. Integration with ConfidenceScorer's path selection<a class="headerlink" href="#6-integration-with-confidencescorers-path-selection" title="Permanent link">&para;</a></h2>
+<p><code>ConfidenceScorer</code> (<code>agents/shared/confidence_scorer.py</code>) already routes
+incidents into three paths via <code>ScoredResult.path</code>:</p>
+<table>
+<thead>
+<tr>
+<th><code>gate_score</code> band</th>
+<th><code>path</code></th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt; 0.55</code> (low)</td>
+<td><code>direct_to_human</code></td>
+<td>Skip simulation; human review only.</td>
+</tr>
+<tr>
+<td><code>0.55 ≤ score &lt; 0.85</code></td>
+<td><code>graph_sim</code></td>
+<td>Run KG-based simulation.</td>
+</tr>
+<tr>
+<td><code>≥ 0.85</code> (high)</td>
+<td><code>containerlab</code></td>
+<td>Run Layer 2 DT.</td>
+</tr>
+</tbody>
+</table>
+<p>V3 adds a fourth degree of freedom: <strong>which DT layer</strong> runs on the
+<code>containerlab</code> and <code>graph_sim</code> paths. <code>ScopePolicy.decide()</code>
+(<code>agents/shared/scope_policy.py</code>) sits between ConfidenceScorer and the
+twin managers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ConfidenceScorer.score(state)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        │
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        ▼  ScoredResult{path=containerlab, gate_score=0.91}
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        │
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        ▼
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>ScopePolicy.decide(fault_type, device_id, commands, confidence_path)
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        │
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        ├── LAYER_2_SRL       ──►  ContainerlabManager.validate_evpn(...)
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        ├── LAYER_3_VRNETLAB  ──►  DTTwinManager.{restore→apply→validate→restore}
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        └── NONE              ──►  direct_to_human (ConfidenceScorer override)
+</code></pre></div>
+<p>Routing rules:
+1. <code>confidence_path == "direct_to_human"</code> ⇒ <code>NONE</code>.
+2. <code>fault_type</code> matches NX-OS-specific pattern (auto-RT, mgmt-vrf,
+   nve source-interface) ⇒ <code>LAYER_3_VRNETLAB</code> with scope = device + peer.
+3. <code>fault_type</code> matches RT/RD/ASN pattern, OR the proposed commands
+   touch RT/RD/ASN ⇒ <code>LAYER_3_VRNETLAB</code> (high-stakes escalation; even
+   if the fault label looked benign, the blast radius is huge).
+4. Generic EVPN fault (<code>evpn_session_down</code>, <code>bgp_evpn_neighbor</code>, ...) ⇒
+   <code>LAYER_2_SRL</code> (SRL can validate these correctly; no need to burn V3).
+5. Default fallback ⇒ <code>LAYER_2_SRL</code>.</p>
+<p>The call site (ValidateNode) does the layer dispatch:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">decision</span> <span class="o">=</span> <span class="n">scope_policy</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">fault_type</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;fault_type&quot;</span><span class="p">],</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">device_id</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;device_id&quot;</span><span class="p">],</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">fabric</span><span class="o">=</span><span class="n">fabric</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">commands</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;proposed_fix&quot;</span><span class="p">],</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">confidence_path</span><span class="o">=</span><span class="n">scored</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">if</span> <span class="n">decision</span><span class="o">.</span><span class="n">layer</span> <span class="o">==</span> <span class="n">TwinLayer</span><span class="o">.</span><span class="n">LAYER_3_VRNETLAB</span><span class="p">:</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">bundle</span> <span class="o">=</span> <span class="k">await</span> <span class="n">dt_twin_manager</span><span class="o">.</span><span class="p">{</span> <span class="o">...</span><span class="n">lifecycle</span><span class="o">...</span> <span class="p">}</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">elif</span> <span class="n">decision</span><span class="o">.</span><span class="n">layer</span> <span class="o">==</span> <span class="n">TwinLayer</span><span class="o">.</span><span class="n">LAYER_2_SRL</span><span class="p">:</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">bundle</span> <span class="o">=</span> <span class="k">await</span> <span class="n">containerlab_manager</span><span class="o">.</span><span class="n">validate_evpn</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="c1"># direct_to_human — skip simulation</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">bundle</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<p>This is the ConfidenceScorer integration. It is NOT wired in this commit
+(the user reserves the call-site integration in ValidateNode for the
+follow-up); the scaffolding above is decoupled so that wire-up is a
+single PR.</p>
+<hr />
+<h2 id="7-roadmap">7. Roadmap<a class="headerlink" href="#7-roadmap" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Commit</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>this commit</strong></td>
+<td><code>DTTwinManager</code> skeleton + <code>MockVrNetlabBackend</code> + <code>SnapshotStore</code> + <code>ScopePolicy</code> + ~16 offline tests. NO real vrnetlab. NO ValidateNode wire-up.</td>
+</tr>
+<tr>
+<td><strong>next commit</strong></td>
+<td><code>RealVrNetlabBackend</code>: shells out to <code>docker</code> + <code>vrnetlab</code> + scrapli on the dedicated EC2 host. End-to-end on a 3-device fabric.</td>
+</tr>
+<tr>
+<td><strong>then</strong></td>
+<td>Continuous-sync-baseline daemon — re-snapshot every N hours from live prod config so baseline drift stays bounded.</td>
+</tr>
+<tr>
+<td><strong>then</strong></td>
+<td>Per-device lock + queue for concurrent incidents on the same device.</td>
+</tr>
+<tr>
+<td><strong>then</strong></td>
+<td>Per-pattern_id validation check suite (BGP-EVPN session, Type-2 advert, NX-OS auto-RT vs vEOS RT-import match, ...).</td>
+</tr>
+<tr>
+<td><strong>then</strong></td>
+<td>Wire <code>ScopePolicy</code> + <code>DTTwinManager</code> into <code>ValidateNode</code>; gate behind <code>DT_V3_ENABLED</code> env var; default off; shadow-compare against <code>LAYER_2_SRL</code> for 2 weeks before flipping default to on.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-file-map">8. File map<a class="headerlink" href="#8-file-map" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>agents/shared/dt_twin_manager.py</code></td>
+<td>Lifecycle orchestrator (boot/restore/apply/validate/teardown).</td>
+</tr>
+<tr>
+<td><code>agents/shared/vrnetlab_backend.py</code></td>
+<td>Protocol + <code>MockVrNetlabBackend</code> + <code>RealVrNetlabBackend</code> stub.</td>
+</tr>
+<tr>
+<td><code>agents/shared/snapshot_store.py</code></td>
+<td>Disk-backed <code>(device_id, snapshot_name) → SnapshotRef</code> map.</td>
+</tr>
+<tr>
+<td><code>agents/shared/scope_policy.py</code></td>
+<td>Fault-type → twin layer + scope decision.</td>
+</tr>
+<tr>
+<td><code>agents/shared/containerlab_manager.py</code></td>
+<td>(unchanged) Layer 2 sibling — still in use.</td>
+</tr>
+<tr>
+<td><code>agents/shared/topology_generator.py</code></td>
+<td>(unchanged) <code>fabric.yaml</code> loader — both layers share.</td>
+</tr>
+<tr>
+<td><code>tests/test_dt_twin_manager.py</code></td>
+<td>Offline tests against <code>MockVrNetlabBackend</code>.</td>
+</tr>
+<tr>
+<td><code>docs/DT_V3_PERSISTENT_SHADOW.md</code></td>
+<td>This document.</td>
+</tr>
+</tbody>
+</table>
+<p>ContainerlabManager is intentionally <strong>untouched</strong> in this commit. V3 is a
+sibling, not a replacement. Once V3 is wired in and shadow-compared,
+existing Layer 2 paths stay for the medium-fidelity-sufficient cases.</p>
+<hr />
+<h2 id="8-implementation-status-2026-05-30">8. Implementation status (2026-05-30)<a class="headerlink" href="#8-implementation-status-2026-05-30" title="Permanent link">&para;</a></h2>
+<h3 id="what-landed-in-this-commit">What landed in this commit<a class="headerlink" href="#what-landed-in-this-commit" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>agents/shared/vrnetlab_backend.py::RealVrNetlabBackend</code></strong> — implements
+  the full <code>VrNetlabBackend</code> protocol against <code>containerlab</code> + <code>docker</code> on
+  the dedicated V3 host. Five lifecycle methods (<code>boot_device</code>, <code>snapshot</code>,
+  <code>restore</code>, <code>exec_commands</code>, <code>cleanup</code>), three dedicated exception classes
+  (<code>VrNetlabBootError</code>, <code>VrNetlabExecError</code>, <code>VrNetlabRestoreError</code>), and a
+  <code>subprocess_runner</code> injection seam so tests run offline. Per-vendor
+  exec CLI shapes (NX-OS / cEOS / SR Linux) routed via <code>twin_kind</code>
+  resolved from <code>boot_config</code> or the fabric vendor map. Restore uses
+  <strong>Strategy B</strong> (docker stop + docker run from snapshot image, ~3-10s on
+  m6i.8xlarge). Strategy A (CRIU sub-second restore) is documented as the
+  v4 target — tracked in code as <code>TODO(v4)</code> next to the restore impl.</li>
+<li><strong><code>ops/v3-host-setup.sh</code></strong> — idempotent provisioning script for a fresh
+  Ubuntu 22.04 EC2 instance. Installs docker + containerlab + vrnetlab,
+  builds NX9K image from operator-supplied qcow2
+  (<code>VRNETLAB_NX9K_QCOW2_PATH</code>), pulls cEOS / SR Linux images, writes
+  <code>/etc/systemd/system/v3-shadow.service</code> (with companion
+  <code>/usr/local/bin/v3-shadow-boot.sh</code> and <code>…-teardown.sh</code>), and pre-boots
+  the fabric baseline on first run. Prints <code>V3 host ready: &lt;count&gt;
+  devices baselined</code> on success.</li>
+<li><strong><code>tests/test_real_vrnetlab_backend.py</code></strong> — 20 tests against a
+  <code>FakeSubprocessRunner</code> (canned <code>(rc, stdout, stderr)</code> per argv prefix,
+  optional <code>asyncio.TimeoutError</code> injection). Zero real subprocess calls.
+  Covers all 5 lifecycle methods (happy + sad paths), per-vendor exec
+  routing, restore healthcheck timeout, exec catastrophic failure
+  (<code>Cannot connect to the Docker daemon</code>), cleanup best-effort behavior,
+  and a doc-string regression test that pins the Strategy A TODO so the
+  next engineer can't ship without seeing it.</li>
+</ul>
+<h3 id="operator-workflow-provision-bring-up-validate">Operator workflow (provision → bring up → validate)<a class="headerlink" href="#operator-workflow-provision-bring-up-validate" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Provision EC2.</strong> Spin a fresh <code>m6i.8xlarge</code> (Ubuntu 22.04). Attach
+   ~200 GB gp3 (NX9K qcow2 + snapshot layers).</li>
+<li><strong>Copy the NX9K qcow2</strong> from a licensed cisco.com download to the host
+   (e.g. <code>/opt/qcow2/nxos.9.3.13.qcow2</code>).</li>
+<li><strong>Run the setup script</strong> as root:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span><span class="nv">VRNETLAB_NX9K_QCOW2_PATH</span><span class="o">=</span>/opt/qcow2/nxos.9.3.13.qcow2<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">     </span><span class="nv">FABRIC_YAML</span><span class="o">=</span>/opt/agentic-netops-mvp/fabric.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">     </span>bash<span class="w"> </span>ops/v3-host-setup.sh
+</code></pre></div>
+   First run is slow (~20-40 min for the vrnetlab NX9K build + initial
+   fabric cold boot). Subsequent runs short-circuit on already-built
+   images.</li>
+<li><strong>Validate.</strong> SSH in and run:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pytest<span class="w"> </span>tests/test_real_vrnetlab_backend.py<span class="w"> </span>-v
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>v3-shadow.service
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>docker<span class="w"> </span>images<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>v3-snapshots/
+</code></pre></div>
+   You should see one snapshot image per fabric device (<code>spine1</code>,
+   <code>leaf-nx</code>, <code>leaf-ar</code> for the prod-dc default fabric) and the
+   v3-shadow systemd unit reporting <code>active (exited)</code>.</li>
+<li><strong>Wire into the orchestrator.</strong> Set <code>DT_V3_ENABLED=1</code> and repoint
+   <code>DTTwinManager</code> to <code>RealVrNetlabBackend(...)</code> (vs <code>MockVrNetlabBackend</code>)
+   in the ValidateNode injection. The follow-up PR flips the default once
+   2 weeks of shadow-compare data shows V3 catching NX-OS-specific bugs
+   that LAYER_2_SRL missed.</li>
+</ol>
+<h3 id="cost-confirmed-2026-05-30">Cost (confirmed 2026-05-30)<a class="headerlink" href="#cost-confirmed-2026-05-30" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16-leaf vrnetlab-NX9K fabric RAM (warm)</td>
+<td>~96 GB</td>
+</tr>
+<tr>
+<td>Host instance (us-east-1, on-demand)</td>
+<td><code>m6i.8xlarge</code> ~$1.54/hr</td>
+</tr>
+<tr>
+<td>Cold-boot (parallel, paid once per rebuild)</td>
+<td>~10-15 min on gp3 16k IOPS</td>
+</tr>
+<tr>
+<td>Per-incident snapshot-restore (Strategy B)</td>
+<td>~3-10s/device</td>
+</tr>
+<tr>
+<td>Per-incident validate cycle (3 devices)</td>
+<td>~10-15s wall clock</td>
+</tr>
+<tr>
+<td>Per-incident $ on m6i.8xlarge</td>
+<td>~$0.006</td>
+</tr>
+</tbody>
+</table>
+<p>The headline numbers in §4 still hold; the operator-facing cost is
+<code>~$37/day</code> running the V3 host continuously, which is cheaper than a single
+human-engineer hour at every NX-OS shop we've talked to.</p>
+<h3 id="deferred-to-follow-up">Deferred to follow-up<a class="headerlink" href="#deferred-to-follow-up" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Strategy A (CRIU) sub-second restore.</strong> Needs runc-with-CRIU on the
+  host kernel and tolerance from NX-OS through freeze/thaw — NX9K's
+  kernel-module-heavy linecard sim is known to misbehave through CRIU.
+  Tracked in <code>RealVrNetlabBackend.restore</code> as <code># TODO(v4)</code>. Blocked
+  behind a kernel-feature spike; will land when we have a willing pilot
+  customer with a more snapshot-friendly platform (Arista cEOS through
+  CRIU is far less risky than NX9K).</li>
+<li><strong>Continuous-sync-baseline daemon.</strong> Periodic re-snapshot from live
+  prod config so the baseline doesn't drift. Currently the operator
+  re-runs <code>boot_baseline</code> manually after intent edits. The daemon is
+  a small loop around <code>DTTwinManager.boot_baseline()</code> + a NetBox-intent
+  change-feed subscription; ~1 day of work, but slotted after the
+  Strategy A spike because re-sync without sub-second restore is
+  cosmetic — the per-incident cost dominates baseline freshness.</li>
+<li><strong>Per-device asyncio lock</strong> for concurrent incidents on the same
+  device (currently incidents serialize at the Team Leader).</li>
+<li><strong>Per-pattern_id validation check suite</strong> (named in §3 of this doc):
+  <code>evpn_session_down</code>, <code>nx_os_auto_rt_mismatch</code>, <code>ospf_neighbor_stuck</code>.
+  The hooks are in <code>DTTwinManager.validate_fix</code>; what's missing is the
+  vendor-native command set + parsers per pattern. ~2 days each.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../vendor-abstraction/" class="md-footer__link md-footer__link--next" aria-label="Next: Vendor abstraction">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Vendor abstraction
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Eduard Dulharu. All rights reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eduardd76" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
