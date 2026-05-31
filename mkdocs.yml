@@ -1,0 +1,114 @@
+site_name: Agentic NetOps
+site_description: Risk-managed autonomous network remediation. Multi-vendor, compliance-aware, auditable.
+site_url: https://eduardd76.github.io/dream_team_public/
+site_author: Eduard Dulharu
+
+repo_url: https://github.com/eduardd76/dream_team_public
+repo_name: dream_team_public
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Pitch:
+      - Overview: pitch/index.md
+      - One-pager: pitch/one-pager.md
+      - What this is: pitch/what-this-is.md
+      - ROI math: pitch/roi-math.md
+      - 60-day pilot: pitch/pilot-program.md
+  - Engineering:
+      - Overview: engineering/index.md
+      - 5-layer architecture: engineering/architecture.md
+      - 7-pass validation pipeline: engineering/seven-pass-pipeline.md
+      - EVPN fault rules: engineering/fault-rules.md
+      - KG schema (Neo4j): engineering/kg-schema.md
+      - Test coverage: engineering/test-coverage.md
+  - Architecture:
+      - Overview: architecture/index.md
+      - Scalability — V3 persistent shadow: architecture/scalability-v3.md
+      - Vendor abstraction: architecture/vendor-abstraction.md
+      - Cost analysis: architecture/cost-analysis.md
+      - Trade-offs: architecture/trade-offs.md
+  - Onboarding:
+      - Overview: onboarding/index.md
+      - Codebase map: onboarding/codebase-map.md
+      - Local dev: onboarding/local-dev.md
+      - Deploy (EC2 + SSM): onboarding/deploy.md
+      - Debugging: onboarding/debugging.md
+  - Reference:
+      - Glossary: reference/glossary.md
+      - Demo runbook: reference/demo-runbook.md
+      - Workshop status: reference/workshop-status.md
+      - Changelog: reference/changelog.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eduardd76
+  generator: false
+
+copyright: Copyright &copy; 2026 Eduard Dulharu. All rights reserved.
